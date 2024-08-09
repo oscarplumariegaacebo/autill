@@ -1,0 +1,6 @@
+@Autill_HostAddress = http://localhost:5048
+
+GET {{Autill_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
