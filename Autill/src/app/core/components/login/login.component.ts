@@ -1,18 +1,29 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-import { HttpClient } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(private api: ApiService){}
+  registerForm: FormGroup | any;
+  email = new FormControl("");
+  password = new FormControl("");
+  
+  constructor(private api: ApiService, private formBuilder: FormBuilder){}
+
+  ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
+    });
+  }
 
   addUser(){
-    console.log('hola');
+    console.log(this.registerForm.value);
   }
 }
