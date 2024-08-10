@@ -1,5 +1,4 @@
 using Autill.Data;
-using Autill.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +16,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 builder.Services.AddAuthentication();
 
-builder.Services.AddIdentityApiEndpoints<User>()
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
     .AddEntityFrameworkStores<DataContext>();
 
 var app = builder.Build();
@@ -29,7 +28,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapIdentityApi<User>();
+app.MapIdentityApi<IdentityUser>();
 
 app.UseHttpsRedirection();
 
