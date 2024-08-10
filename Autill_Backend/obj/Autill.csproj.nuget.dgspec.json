@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\projects\\Autill\\Autill.csproj": {}
+    "D:\\projects\\Autill\\Autill_Backend\\Autill.csproj": {}
   },
   "projects": {
-    "D:\\projects\\Autill\\Autill.csproj": {
+    "D:\\projects\\Autill\\Autill_Backend\\Autill.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\projects\\Autill\\Autill.csproj",
+        "projectUniqueName": "D:\\projects\\Autill\\Autill_Backend\\Autill.csproj",
         "projectName": "Autill",
-        "projectPath": "D:\\projects\\Autill\\Autill.csproj",
+        "projectPath": "D:\\projects\\Autill\\Autill_Backend\\Autill.csproj",
         "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "D:\\projects\\Autill\\obj\\",
+        "outputPath": "D:\\projects\\Autill\\Autill_Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -46,9 +46,27 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.7, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.4.0, )"
+              "version": "[6.7.0, )"
             }
           },
           "imports": [
