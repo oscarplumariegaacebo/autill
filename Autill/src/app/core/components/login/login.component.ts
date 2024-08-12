@@ -18,12 +18,16 @@ export class LoginComponent {
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/)]],
       password: ['', [Validators.required]]
     });
   }
 
   addUser(){
-    console.log(this.registerForm.value);
+    if (this.registerForm.valid) {
+      this.api.register(this.registerForm.value).subscribe();
+    } else {
+      alert('Form invalid. Please fill out the form correctly.');
+    }
   }
 }
