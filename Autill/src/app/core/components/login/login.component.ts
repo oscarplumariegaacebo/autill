@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -38,8 +39,9 @@ export class LoginComponent {
   email = new FormControl("");
   password = new FormControl("");
   register_option = false;
+  err:any | null;
   
-  constructor(private api: ApiService, private formBuilder: FormBuilder){}
+  constructor(private api: ApiService, private formBuilder: FormBuilder, private router: Router){}
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -51,9 +53,19 @@ export class LoginComponent {
   authUser(action: string){
     if (this.registerForm.valid) {
       if(action === 'register') {
-        this.api.auth(this.registerForm.value, action).subscribe();
+        this.api.auth(this.registerForm.value, action).subscribe({
+          next: () => {},
+          error: (err) => {
+            let errObj = err.error.errors;
+            this.err = Object.values(errObj);
+          }
+        });
       }else{
-        this.api.auth(this.registerForm.value, action).subscribe();
+        this.api.auth(this.registerForm.value, action).subscribe({
+          next: () => {
+            this.router.navigate(['main']);
+          }
+        });
       }
     } else {
       alert('Form invalid. Please fill out the form correctly.');
