@@ -1,18 +1,43 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
+  animations: [
+    trigger(
+      'inOutAnimation', 
+      [
+        transition(
+          ':enter', 
+          [
+            style({ height: 0, opacity: 0 }),
+            animate('1s ease-out', 
+                    style({ height: 300, opacity: 1 }))
+          ]
+        ),
+        transition(
+          ':leave', 
+          [
+            style({ height: 100, opacity: 1 }),
+            animate('1s ease-in', 
+                    style({ height: 0, opacity: 0 }))
+          ]
+        )
+      ]
+    )
+  ]
 })
 export class LoginComponent {
   registerForm: FormGroup | any;
   email = new FormControl("");
   password = new FormControl("");
+  register_option = false;
   
   constructor(private api: ApiService, private formBuilder: FormBuilder){}
 
@@ -29,5 +54,9 @@ export class LoginComponent {
     } else {
       alert('Form invalid. Please fill out the form correctly.');
     }
+  }
+
+  changeForm(){
+    this.register_option = !this.register_option;
   }
 }
