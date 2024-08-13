@@ -48,9 +48,13 @@ export class LoginComponent {
     });
   }
 
-  addUser(){
+  authUser(action: string){
     if (this.registerForm.valid) {
-      this.api.register(this.registerForm.value).subscribe();
+      if(action === 'register') {
+        this.api.auth(this.registerForm.value, action).subscribe();
+      }else{
+        this.api.auth(this.registerForm.value, action).subscribe();
+      }
     } else {
       alert('Form invalid. Please fill out the form correctly.');
     }
