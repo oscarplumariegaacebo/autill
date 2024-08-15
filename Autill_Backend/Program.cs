@@ -1,4 +1,5 @@
 using Autill.Data;
+using Autill.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,13 +18,13 @@ builder.Services.AddCors(options => options.AddPolicy(name: "AngularFr",
         policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
     }));
 
-builder.Services.AddDbContext<DataContext>(options => 
+builder.Services.AddDbContext<UserContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddAuthentication();
 
-builder.Services.AddIdentityApiEndpoints<IdentityUser>()
-    .AddEntityFrameworkStores<DataContext>();
+builder.Services.AddIdentityApiEndpoints<User>()
+    .AddEntityFrameworkStores<UserContext>();
 
 var app = builder.Build();
 
@@ -36,7 +37,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AngularFr");
 
-app.MapIdentityApi<IdentityUser>();
+app.MapIdentityApi<User>();
 
 app.UseHttpsRedirection();
 

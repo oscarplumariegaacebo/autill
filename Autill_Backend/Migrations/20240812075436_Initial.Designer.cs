@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Autill.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(UserContext))]
     [Migration("20240812075436_Initial")]
     partial class Initial
     {
