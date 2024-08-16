@@ -1,10 +1,8 @@
 // User Model
-export class User {
-  email: string;
-  password: string;
-
-  constructor(password: string, email: string) {
-    this.password = password;
-    this.email = email;
-  }
+export interface User {
+  email: string,
+  fullname: string,
+  address: string,
+  phone_number: number,
+  cif: string,
 }

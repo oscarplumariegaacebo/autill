@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
+import { User } from '../models/User';
+
+type UserResponse = {
+  result: User;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +22,9 @@ export class ApiService {
       auth_action = 'login';
     }
     return this.http.post(this.api+auth_action, user);
+  }
+
+  getUserByEmail(email: string): Observable<UserResponse> {
+    return this.http.get<UserResponse>(this.api+'api/Users/'+email);
   }
 }

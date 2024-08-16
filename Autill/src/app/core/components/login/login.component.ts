@@ -11,27 +11,26 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   animations: [
-    trigger(
-      'inOutAnimation', 
-      [
-        transition(
-          ':enter', 
-          [
-            style({ height: 0, opacity: 0 }),
-            animate('1s ease-out', 
-                    style({ height: 300, opacity: 1 }))
-          ]
-        ),
-        transition(
-          ':leave', 
-          [
-            style({ height: 100, opacity: 1 }),
-            animate('1s ease-in', 
-                    style({ height: 0, opacity: 0 }))
-          ]
-        )
-      ]
-    )
+    trigger('openClose', [
+      state(
+        'open',
+        style({
+          height: '200px',
+          opacity: 1,
+          backgroundColor: 'yellow',
+        }),
+      ),
+      state(
+        'closed',
+        style({
+          height: '100px',
+          opacity: 0.8,
+          backgroundColor: 'blue',
+        }),
+      ),
+      transition('open => closed', [animate('1s')]),
+      transition('closed => open', [animate('0.5s')]),
+    ])
   ]
 })
 export class LoginComponent {
@@ -46,7 +45,7 @@ export class LoginComponent {
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/)]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]]
     });
   }
 
@@ -63,6 +62,7 @@ export class LoginComponent {
       }else{
         this.api.auth(this.registerForm.value, action).subscribe({
           next: () => {
+            //TO-DO pass email to AppComponent?
             this.router.navigate(['main']);
           }
         });
