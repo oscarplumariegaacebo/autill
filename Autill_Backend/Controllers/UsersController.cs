@@ -27,14 +27,14 @@ namespace Autill.Controllers
             return await _userContext.Users.ToListAsync();
         }
 
-        [HttpGet("{Id}")]
-        public async Task<ActionResult<User>> GetUser(string id)
+        [HttpGet("{Email}")]
+        public async Task<ActionResult<User>> GetUserByEmail(string email)
         {
             if (_userContext.Users is null)
             {
                 return NotFound();
             }
-            var user = _userContext.Users.FirstOrDefault(s => s.Id == id);
+            var user = _userContext.Users.FirstOrDefault(s => s.Email == email);
             if (user is null)
             {
                 return NotFound();
@@ -43,9 +43,9 @@ namespace Autill.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<User>> PutUser(string id, User user)
+        public async Task<ActionResult<User>> PutUser(string email, User user)
         {
-            if(id != user.Id)
+            if(email != user.Email)
             {
                 return BadRequest();
             }
@@ -56,7 +56,7 @@ namespace Autill.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if(!UserExists(id)) 
+                if(!UserExists(email)) 
                 {
                     return NotFound();
                 }
@@ -68,9 +68,9 @@ namespace Autill.Controllers
             return NoContent();
         }
 
-        private bool UserExists(string id) 
+        private bool UserExists(string email) 
         {
-            return (_userContext.Users?.Any(user => user.Id == id)).GetValueOrDefault();
+            return (_userContext.Users?.Any(user => user.Email == email)).GetValueOrDefault();
         }
     }
 }
