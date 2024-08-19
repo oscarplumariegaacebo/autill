@@ -43,12 +43,8 @@ namespace Autill.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<User>> PutUser(string email, User user)
+        public async Task<ActionResult<User>> PutUser(User user)
         {
-            if(email != user.Email)
-            {
-                return BadRequest();
-            }
             _userContext.Entry(user).State = EntityState.Modified;
             try
             {
@@ -56,7 +52,7 @@ namespace Autill.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if(!UserExists(email)) 
+                if(!UserExists(user.Email)) 
                 {
                     return NotFound();
                 }
