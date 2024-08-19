@@ -69,8 +69,8 @@ export class LoginComponent {
       }else{
         this.api.auth(this.registerForm.value, action).subscribe({
           next: () => {
-            //TO-DO pass email to AppComponent?
-            this.router.navigate(['main']);
+            ///TODO pass email between components
+            this.router.navigate(['']);
           }
         });
       }

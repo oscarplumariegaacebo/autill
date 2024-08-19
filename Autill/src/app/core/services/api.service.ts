@@ -7,6 +7,13 @@ type UserResponse = {
   result: User;
 }
 
+interface UserEdit {
+  email: string;
+  address: string;
+  phoneNumber: number;
+  cif: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,5 +33,9 @@ export class ApiService {
 
   getUserByEmail(email: string): Observable<UserResponse> {
     return this.http.get<UserResponse>(this.api+'api/Users/'+email);
+  }
+
+  editUser(user: any){
+    return this.http.put<UserEdit>(this.api+'api/Users', user);
   }
 }

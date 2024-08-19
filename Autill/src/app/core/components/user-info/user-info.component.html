@@ -5,6 +5,13 @@
               <h2 class="text-gray-800 text-center text-2xl font-bold">Personal data</h2>
               <form [formGroup]="userInfo" class="mt-8 space-y-4">
                 <div>
+                    <label class="text-gray-800 text-sm mb-2 block">Full Name</label>
+                    <div class="relative flex items-center">
+                      <input formControlName="fullName" name="fullName" type="text" required class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600" placeholder="Enter Full Name" />
+                    </div>
+                </div>
+
+                <div>
                   <label class="text-gray-800 text-sm mb-2 block">Email</label>
                   <div class="relative flex items-center">
                     <input formControlName="email" name="email" type="text" required class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600" placeholder="Enter email" />
@@ -32,12 +39,12 @@
                 <div>
                     <label class="text-gray-800 text-sm mb-2 block">Phone Number</label>
                     <div class="relative flex items-center">
-                      <input formControlName="phoneNumber" name="phoneNumber" type="number" required class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600" placeholder="Enter Phone Number" />
+                      <input formControlName="phoneNumber" name="phoneNumber" type="text" required class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600" placeholder="Enter Phone Number" />
                     </div>
                 </div>
     
                 <div class="!mt-8">
-                  <button type="button" class="w-full py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                  <button (click)="updateUser()" type="button" class="w-full py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
                     Update data
                   </button>
                 </div>

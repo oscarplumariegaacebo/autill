@@ -15,25 +15,37 @@ export class UserInfoComponent {
 
   initializeForm(){
     this.userInfo = new FormGroup({
+      fullName: new FormControl(),
       email: new FormControl(),
       address: new FormControl(),
       phoneNumber: new FormControl(),
-      cif: new FormControl()
+      cif: new FormControl(),
+      id: new FormControl()
     })
   }
 
   constructor (private service: ApiService, private formBuilder: FormBuilder) {
     this.initializeForm();
   }
-  
+
   ngOnInit() {
     this.service.getUserByEmail('oscarplumariegacebo@gmail.com').subscribe((data: any) => {
         this.userInfo = this.formBuilder.group({
-          email: [data.email ? data.email : '', [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/)]],
+          fullName: [data.fullName ? data.fullName : '', [Validators.required]],
+          email: [data.email ? data.email : ''],
           address: [data.address? data.address : '', [Validators.required]],
           cif: [data.cif? data.cif : '', [Validators.required]],
-          phoneNumber: [data.phoneNumber? data.phoneNumber : '', [Validators.required]]
+          phoneNumber: [data.phoneNumber? data.phoneNumber : '', [Validators.required]],
+          id: [data.id? data.id : '']
         });
+    })
+  }
+
+  updateUser(){
+    this.service.editUser(this.userInfo.value).subscribe({
+      next: () => {
+        alert("sucess");
+      }
     })
   }
 
