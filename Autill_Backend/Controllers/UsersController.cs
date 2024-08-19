@@ -43,30 +43,15 @@ namespace Autill.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<User>> PutUser(User user)
+        public bool PutUser([FromBody] User user)
         {
-            _userContext.Entry(user).State = EntityState.Modified;
-            try
-            {
-                await _userContext.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if(!UserExists(user.Email)) 
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return NoContent();
-        }
-
-        private bool UserExists(string email) 
-        {
-            return (_userContext.Users?.Any(user => user.Email == email)).GetValueOrDefault();
+           return _userContext.Users.Where(x => x.Id == user.Id && x.Email == user.Email)
+           .ExecuteUpdate(setter => setter
+           .SetProperty(x => x.FullName, user.FullName)
+           .SetProperty(x => x.Address, user.Address)
+           .SetProperty(x => x.Cif, user.Cif)
+           .SetProperty(x => x.PhoneNumber, user.PhoneNumber)
+           ) > 0;
         }
     }
 }
