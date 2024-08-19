@@ -34,13 +34,20 @@ import { Router } from '@angular/router';
   ]
 })
 export class LoginComponent {
-  registerForm: FormGroup | any;
-  email = new FormControl("");
-  password = new FormControl("");
+  registerForm!: FormGroup
   register_option = false;
   err:any | null;
+
+  initializeForm(){
+    this.registerForm = new FormGroup({
+      email: new FormControl(),
+      password: new FormControl()
+    })
+  }
   
-  constructor(private api: ApiService, private formBuilder: FormBuilder, private router: Router){}
+  constructor(private api: ApiService, private formBuilder: FormBuilder, private router: Router){
+    this.initializeForm();
+  }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
