@@ -21,6 +21,12 @@ builder.Services.AddCors(options => options.AddPolicy(name: "AngularFr",
 builder.Services.AddDbContext<UserContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddDbContext<ClientContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDbContext<BudgetContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddAuthentication();
 
 builder.Services.AddIdentityApiEndpoints<User>()
