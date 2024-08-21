@@ -70,7 +70,7 @@ export class LoginComponent {
         this.api.auth(this.registerForm.value, action).subscribe({
           next: () => {
             ///TODO pass email between components
-            this.router.navigate(['']);
+            this.router.navigate(['/home']);
           }
         });
       }

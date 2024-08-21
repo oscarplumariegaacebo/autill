@@ -12,6 +12,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 })
 export class UserInfoComponent {
   userInfo!: FormGroup
+  logoPath!: string
 
   initializeForm(){
     this.userInfo = new FormGroup({
@@ -30,6 +31,8 @@ export class UserInfoComponent {
 
   ngOnInit() {
     this.service.getUserByEmail('oscarplumariegacebo@gmail.com').subscribe((data: any) => {
+      this.logoPath = data.logo;
+      console.log(data.logo);
         this.userInfo = this.formBuilder.group({
           fullName: [data.fullName ? data.fullName : '', [Validators.required]],
           email: [data.email ? data.email : ''],
