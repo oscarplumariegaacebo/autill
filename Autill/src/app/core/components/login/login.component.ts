@@ -3,11 +3,12 @@ import { ApiService } from '../../services/api.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Router } from '@angular/router';
+import { SpinnerLoadingComponent } from '../../../shared/components/spinner-loading/spinner-loading.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, SpinnerLoadingComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   animations: [
@@ -37,6 +38,7 @@ export class LoginComponent {
   registerForm!: FormGroup
   register_option = false;
   err:any | null;
+  loading:boolean = false;
 
   initializeForm(){
     this.registerForm = new FormGroup({
@@ -70,7 +72,12 @@ export class LoginComponent {
         this.api.auth(this.registerForm.value, action).subscribe({
           next: () => {
             ///TODO pass email between components
-            this.router.navigate(['/home']);
+            this.loading = true;
+          },
+          complete: () => {
+            setTimeout(() => {
+              this.router.navigate(['/home']);
+            }, 2000)
           }
         });
       }
