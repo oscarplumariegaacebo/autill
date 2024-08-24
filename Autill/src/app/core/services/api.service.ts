@@ -38,4 +38,7 @@ export class ApiService {
   editUser(user: any){
     return this.http.put<UserEdit>(this.api+'api/Users', user);
   }
+  getBudgets(){
+    return this.http.get(this.api+'api/Budgets');
+  }
 }
