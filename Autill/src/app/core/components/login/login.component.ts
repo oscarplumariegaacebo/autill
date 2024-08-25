@@ -62,10 +62,16 @@ export class LoginComponent {
     if (this.registerForm.valid) {
       if(action === 'register') {
         this.api.auth(this.registerForm.value, action).subscribe({
-          next: () => {},
+          next: () => {
+            this.loading = true;
+          },
           error: (err) => {
             let errObj = err.error.errors;
             this.err = Object.values(errObj);
+          },
+          complete: () => {
+            this.register_option = false;
+            this.loading = false;
           }
         });
       }else{
@@ -81,8 +87,6 @@ export class LoginComponent {
           }
         });
       }
-    } else {
-      alert('Form invalid. Please fill out the form correctly.');
     }
   }
 
