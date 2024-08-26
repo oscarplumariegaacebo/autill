@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -59,12 +59,10 @@ export class LoginComponent {
   }
 
   authUser(action: string){
+    this.loading = true;
     if (this.registerForm.valid) {
       if(action === 'register') {
         this.api.auth(this.registerForm.value, action).subscribe({
-          next: () => {
-            this.loading = true;
-          },
           error: (err) => {
             let errObj = err.error.errors;
             this.err = Object.values(errObj);
@@ -76,12 +74,9 @@ export class LoginComponent {
         });
       }else{
         this.api.auth(this.registerForm.value, action).subscribe({
-          next: () => {
-            ///TODO pass email between components
-            this.loading = true;
-          },
           complete: () => {
             setTimeout(() => {
+              localStorage.setItem('email',this.registerForm.controls['email'].value);
               this.router.navigate(['/home']);
             }, 2000)
           }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -8,5 +9,11 @@ import { Component } from '@angular/core';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+  emailLogin: string = '';
 
+  constructor() { }
+
+  ngOnInit() {
+
+  }
 }
