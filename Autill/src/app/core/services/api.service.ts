@@ -41,4 +41,7 @@ export class ApiService {
   getBudgets(){
     return this.http.get(this.api+'api/Budgets');
   }
+  nextBudgetName(){
+    return this.http.get(this.api+'api/Budgets/nextName');
+  }
 }

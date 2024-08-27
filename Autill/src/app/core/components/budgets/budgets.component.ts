@@ -25,9 +25,6 @@ export class BudgetsComponent {
   openTaskDialog() {
     const dialogRef = this.dialog.open(BudgetModalComponent);
 
-    /* 
-      Handles what happens after the modal dialog is closed
-    */
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         // do something

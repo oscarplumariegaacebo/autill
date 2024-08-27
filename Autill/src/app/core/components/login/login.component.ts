@@ -47,7 +47,7 @@ export class LoginComponent {
     })
   }
   
-  constructor(private api: ApiService, private formBuilder: FormBuilder, private router: Router){
+  constructor(private apiService: ApiService, private formBuilder: FormBuilder, private router: Router){
     this.initializeForm();
   }
 
@@ -62,7 +62,7 @@ export class LoginComponent {
     this.loading = true;
     if (this.registerForm.valid) {
       if(action === 'register') {
-        this.api.auth(this.registerForm.value, action).subscribe({
+        this.apiService.auth(this.registerForm.value, action).subscribe({
           error: (err) => {
             let errObj = err.error.errors;
             this.err = Object.values(errObj);
@@ -73,7 +73,7 @@ export class LoginComponent {
           }
         });
       }else{
-        this.api.auth(this.registerForm.value, action).subscribe({
+        this.apiService.auth(this.registerForm.value, action).subscribe({
           complete: () => {
             setTimeout(() => {
               localStorage.setItem('email',this.registerForm.controls['email'].value);
