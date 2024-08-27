@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Autill.Migrations.Client
+namespace Autill.Migrations
 {
     [DbContext(typeof(ClientContext))]
     partial class ClientContextModelSnapshot : ModelSnapshot

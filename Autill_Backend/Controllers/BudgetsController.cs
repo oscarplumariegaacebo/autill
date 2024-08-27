@@ -2,6 +2,8 @@
 using Autill.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Autill.Controllers
 {
@@ -20,6 +22,28 @@ namespace Autill.Controllers
         public async Task<ActionResult<IEnumerable<Budget>>> GetBudgets()
         {
             return await _budgetContext.Budgets.ToListAsync();
+        }
+
+        [HttpGet("nextName")]
+        public async Task<ActionResult<string>> LastNameBudget()
+        {
+            var lastBudget = await _budgetContext.Budgets.OrderBy(e => e.Id).LastOrDefaultAsync();
+
+            if (lastBudget == null)
+            {
+                var resultNotFound = new
+                {
+                    name = "-0000"
+                };
+
+                return JsonSerializer.Serialize(resultNotFound);
+            }
+
+            var result = new
+            {
+                name = lastBudget.Name
+            };
+            return JsonSerializer.Serialize(result);
         }
 
         [HttpGet("{id}")]

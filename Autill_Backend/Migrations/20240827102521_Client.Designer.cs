@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Autill.Migrations.Client
+namespace Autill.Migrations
 {
     [DbContext(typeof(ClientContext))]
-    [Migration("20240821223441_Clients")]
-    partial class Clients
+    [Migration("20240827102521_Client")]
+    partial class Client
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

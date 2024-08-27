@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Autill.Migrations.Budget
 {
     [DbContext(typeof(BudgetContext))]
-    [Migration("20240821223743_Budgets")]
-    partial class Budgets
+    [Migration("20240827102548_Budget")]
+    partial class Budget
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,9 @@ namespace Autill.Migrations.Budget
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Date")
                         .IsRequired()

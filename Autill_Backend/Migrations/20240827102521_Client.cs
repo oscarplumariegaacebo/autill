@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace Autill.Migrations.Client
+namespace Autill.Migrations
 {
     /// <inheritdoc />
-    public partial class Clients : Migration
+    public partial class Client : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

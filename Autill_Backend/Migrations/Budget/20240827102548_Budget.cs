@@ -5,7 +5,7 @@
 namespace Autill.Migrations.Budget
 {
     /// <inheritdoc />
-    public partial class Budgets : Migration
+    public partial class Budget : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,6 +17,7 @@ namespace Autill.Migrations.Budget
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ClientId = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DescriptionItems = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false)
