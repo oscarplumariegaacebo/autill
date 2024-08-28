@@ -47,4 +47,7 @@ export class ApiService {
   getClients(){
     return this.http.get(this.api+'api/Clients');
   }
+  deleteClient(id: number){
+    return this.http.delete(this.api+'api/Clients/'+id);
+  }
 }

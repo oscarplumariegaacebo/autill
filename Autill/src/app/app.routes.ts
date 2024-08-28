@@ -4,11 +4,13 @@ import { UserInfoComponent } from './core/components/user-info/user-info.compone
 import { HomeComponent } from './core/components/home/home.component';
 import { BillsComponent } from './core/components/bills/bills.component';
 import { BudgetsComponent } from './core/components/budgets/budgets.component';
+import { ClientsComponent } from './core/components/clients/clients.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
     { path: 'home', component: HomeComponent },
     { path: 'userInfo', component: UserInfoComponent},
     { path: 'bills', component: BillsComponent},
-    { path: 'budgets', component: BudgetsComponent }
+    { path: 'budgets', component: BudgetsComponent },
+    { path: 'clients', component: ClientsComponent}
 ];
