@@ -3,6 +3,7 @@ import { ApiService } from '../../services/api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatButton } from '@angular/material/button';
+import { DeleteItemModalComponent } from '../../../shared/components/delete-item-modal/delete-item-modal.component';
 
 @Component({
   selector: 'app-clients',
@@ -39,8 +40,13 @@ export class ClientsComponent {
   }
 
   deleteClient(id: number){
-    this.apiService.deleteClient(id).subscribe({
-      
+    const dialogRef = this.dialog.open(DeleteItemModalComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'confirm'){
+        this.apiService.deleteClient(id).subscribe({
+        })
+      }
     })
   }
 
