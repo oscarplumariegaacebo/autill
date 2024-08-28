@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BudgetModalComponent } from '../../../shared/components/budget-modal/budget-modal.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-budgets',
@@ -13,12 +14,27 @@ import { BudgetModalComponent } from '../../../shared/components/budget-modal/bu
 export class BudgetsComponent {
   budgets:any = [];
   showModal = false;
+  apiService = inject(ApiService);
+  errorMessage: string = '';
 
-  constructor(private service: ApiService, private dialog: MatDialog){}
+  constructor(private dialog: MatDialog){}
 
   ngOnInit() {
-    this.service.getBudgets().subscribe((data:any) => {
-      this.budgets = data;
+    this.apiService.getBudgets().subscribe({
+      next: (data) => {
+        this.budgets = data;
+      }, 
+      error: (err: HttpErrorResponse) => {
+        let error = '';
+        if(err.status === 500){
+          error = 'Internal server error.'
+        }else if(err.status === 401){
+          error = 'No autorizado.'
+        }else{
+          error = 'Ha ocurrido un error, contacta con el administrador.'
+        }
+        this.errorMessage = error;
+      }
     })
   }
 

@@ -28,21 +28,30 @@
             </tr>
         </thead>
         <tbody>
-            @for (b of budgets; track b){
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{ b.name }}
-                    </th>
-                    <td class="px-6 py-4">
-                        {{ b.client }}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ b.date }}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ b.price }}
-                    </td>
-                </tr>    
+            @if(errorMessage){
+                <h2>{{ errorMessage }}</h2>
+            }
+            @if(budgets){
+                @if(budgets.length > 0){
+                    @for (b of budgets; track b){
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ b.name }}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ b.client }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ b.date }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ b.price }}
+                            </td>
+                        </tr>    
+                    }
+                }@else {
+                    <h2>No hay presupuestos.</h2>
+                }
             }
         </tbody>
     </table>

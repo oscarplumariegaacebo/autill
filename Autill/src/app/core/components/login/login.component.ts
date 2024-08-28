@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -39,6 +39,7 @@ export class LoginComponent {
   register_option = false;
   err:any | null;
   loading:boolean = false;
+  apiService = inject(ApiService);
 
   initializeForm(){
     this.registerForm = new FormGroup({
@@ -47,7 +48,7 @@ export class LoginComponent {
     })
   }
   
-  constructor(private apiService: ApiService, private formBuilder: FormBuilder, private router: Router){
+  constructor(private formBuilder: FormBuilder, private router: Router){
     this.initializeForm();
   }
 
