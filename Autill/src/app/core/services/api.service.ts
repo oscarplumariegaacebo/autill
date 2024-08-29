@@ -47,7 +47,16 @@ export class ApiService {
   getClients(){
     return this.http.get(this.api+'api/Clients');
   }
+  getClientById(id:number){
+    return this.http.get(this.api+'api/Clients/'+id);
+  }
   deleteClient(id: number){
     return this.http.delete(this.api+'api/Clients/'+id);
+  }
+  addClient(client:any){
+    return this.http.post(this.api+'api/Clients', client)
+  }
+  editClient(id:number, client:any){
+    return this.http.put(this.api+'api/Clients/'+id, client)
   }
 }

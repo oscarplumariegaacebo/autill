@@ -13,7 +13,7 @@
                     <th scope="col" class="px-10 py-3">direccion completa</th>
                     <th scope="col" class="px-8 py-3">telefono</th>
                     <th scope="col" class="px-10 py-3">
-                        <button (click)="openTaskDialog()"
+                        <button (click)="openTaskDialog(0)"
                             class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-8 rounded inline-flex items-center">
                             <svg class="svg-icon" viewBox="0 0 20 20">
                                 <path
@@ -41,7 +41,7 @@
                         {{ c.phoneNumber }}
                     </td>
                     <td class="px-10 py-3">
-                        <button mat-flat-button>Editar</button>
+                        <button (click)="openTaskDialog(c.id)" mat-flat-button>Editar</button>
                         <button (click)="deleteClient(c.id)" class="ml-2" color="warn" mat-flat-button>Eliminar</button>
                     </td>
                 </tr>
@@ -51,7 +51,7 @@
         }@else {
             <div class="flex items-center justify-center h-screen">
                 <p class="text-center">No hay clientes.</p>
-                <button (click)="openTaskDialog()"
+                <button (click)="openTaskDialog(0)"
                 class="hover:bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                 <svg class="svg-icon" viewBox="0 0 20 20">
                     <path

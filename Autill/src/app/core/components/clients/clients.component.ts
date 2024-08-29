@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatButton } from '@angular/material/button';
 import { DeleteItemModalComponent } from '../../../shared/components/delete-item-modal/delete-item-modal.component';
+import { ClientsModalComponent } from '../../../shared/components/clients-modal/clients-modal.component';
 
 @Component({
   selector: 'app-clients',
@@ -50,13 +51,14 @@ export class ClientsComponent {
     })
   }
 
-  openTaskDialog() {
-    //const dialogRef = this.dialog.open(ClientModalComponent); TODO
+  openTaskDialog(id: number) {
+    const dialogRef = this.dialog.open(ClientsModalComponent);
+    dialogRef.componentInstance.id = id;
 
-    /*dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
-
+        // do something
       }
-    });*/
+    });
   }
 }
