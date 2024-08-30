@@ -39,9 +39,30 @@ namespace Autill.Controllers
                 return JsonSerializer.Serialize(resultNotFound);
             }
 
+            var lastNums = lastBudget.Name.Substring(lastBudget.Name.Length - 4);
+            int nextNum = int.Parse(lastNums)+1;
+
+            var nextName = "";
+
+            /*TODO -> optimize*/
+            if (nextNum.ToString().Length == 1)
+            {
+                nextName = "-000" + nextNum;
+            }else if (nextNum.ToString().Length == 2)
+            {
+                nextName = "-00" + nextNum;
+            }else if (nextNum.ToString().Length == 3)
+            {
+                nextName = "-0" + nextNum;
+            }
+            else if (nextNum.ToString().Length == 4)
+            {
+                nextName = "-" + nextNum;
+            }
+
             var result = new
             {
-                name = lastBudget.Name
+                name = nextName
             };
             return JsonSerializer.Serialize(result);
         }
