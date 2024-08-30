@@ -3,11 +3,12 @@ import { ApiService } from '../../services/api.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BudgetModalComponent } from '../../../shared/components/budget-modal/budget-modal.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-budgets',
   standalone: true,
-  imports: [BudgetModalComponent],
+  imports: [MatButton],
   templateUrl: './budgets.component.html',
   styleUrl: './budgets.component.css'
 })
@@ -38,13 +39,20 @@ export class BudgetsComponent {
     })
   }
 
-  openTaskDialog() {
+  openTaskDialog(id: number) {
     const dialogRef = this.dialog.open(BudgetModalComponent);
+    dialogRef.componentInstance.id = id;
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         // do something
       }
     });
+  }
+
+  deleteBudget(id:number){
+    this.apiService.deleteBudget(id).subscribe({
+
+    })
   }
 }

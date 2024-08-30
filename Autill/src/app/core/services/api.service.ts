@@ -14,6 +14,28 @@ interface UserEdit {
   cif: string;
 }
 
+interface Client{
+  id: number,
+  name: string,
+  address: string,
+  region: string,
+  city: string,
+  postalCode: number,
+  email: string,
+  country: string,
+  cif: string,
+  phoneNumber: number
+}
+
+interface Budget{
+  id: number,
+  name: string,
+  clientId: number,
+  price: number,
+  descriptionItems: string,
+  date: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -53,10 +75,19 @@ export class ApiService {
   deleteClient(id: number){
     return this.http.delete(this.api+'api/Clients/'+id);
   }
-  addClient(client:any){
-    return this.http.post(this.api+'api/Clients', client)
+  addClient(client:Client){
+    return this.http.post<Client>(this.api+'api/Clients', client)
   }
   editClient(id:number, client:any){
     return this.http.put(this.api+'api/Clients/'+id, client)
+  }
+  addBudget(budget:Budget){
+    return this.http.post<Budget>(this.api+'api/Budgets', budget)
+  }
+  deleteBudget(id: number){
+    return this.http.delete(this.api+'api/Budgets/'+id);
+  }
+  getBudgetById(id: number){
+    return this.http.get(this.api+'api/Budgets/'+id);
   }
 }

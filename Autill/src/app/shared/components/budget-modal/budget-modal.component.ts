@@ -21,11 +21,17 @@ export class BudgetModalComponent {
   loading:boolean = false;
   clients:any = [];
   apiService = inject(ApiService);
+  id!:number;
+  nextName!:string;
 
   initializeForm(){
     this.budgetForm = new FormGroup({
+      id: new FormControl(),
       name: new FormControl(),
-      price: new FormControl()
+      price: new FormControl(),
+      descriptionItems: new FormControl(),
+      clientId: new FormControl(),
+      date: new FormControl()
     })
   }
 
@@ -38,12 +44,36 @@ export class BudgetModalComponent {
       this.clients = clients;
     })
     this.apiService.nextBudgetName().subscribe((name:any) => {
-      this.budgetForm = this.formBuilder.group({
-        name: [name.name, [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/)]],
-        password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]]
-      });
+      if(this.id>0){
+        this.apiService.getBudgetById(this.id).subscribe((budget:any) => {
+          this.budgetForm.setValue(budget);
+        })
+      }else{
+        this.budgetForm.controls['name'].setValue('Prespuesto'+name.name);
+      }
     })
+  }
 
+  actionBudget(){
+    this.loading = true;
+    if(this.id == 0){
+      this.apiService.addBudget(this.budgetForm.value).subscribe({
+        next: () => {
+          console.log(this.budgetForm.value);
+        },
+        complete: () => {
+          window.location.reload();
+        }
+      })
+    }else{
+      this.apiService.editClient(this.id, this.budgetForm.value).subscribe({
+        complete: () => {
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000)
+        }
+      })
+    }
   }
 
   onClose(): void {
