@@ -79,7 +79,7 @@ export class LoginComponent {
             setTimeout(() => {
               localStorage.setItem('email',this.registerForm.controls['email'].value);
               this.router.navigate(['/home']);
-            }, 2000)
+            }, 1000)
           }
         });
       }
