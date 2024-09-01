@@ -22,7 +22,17 @@ export class BudgetsComponent {
 
   ngOnInit() {
     this.apiService.getBudgets().subscribe({
-      next: (data) => {
+      next: (data:any) => {
+
+        for (let i = 0; i < data.length; i++) {
+          this.apiService.getClients().subscribe((clients:any) =>{
+            for (let x = 0; x < clients.length; x++) {
+              if(clients[x].id === data[i].clientId) {
+                data[i].clientName = clients[x].name;
+              }
+            }
+          })
+        }
         this.budgets = data;
       }, 
       error: (err: HttpErrorResponse) => {
