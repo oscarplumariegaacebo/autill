@@ -4,11 +4,12 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BudgetModalComponent } from '../../../shared/components/budget-modal/budget-modal.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatButton } from '@angular/material/button';
+import { ErrorsComponent } from "../../../shared/components/errors/errors.component";
 
 @Component({
   selector: 'app-budgets',
   standalone: true,
-  imports: [MatButton],
+  imports: [MatButton, ErrorsComponent],
   templateUrl: './budgets.component.html',
   styleUrl: './budgets.component.css'
 })

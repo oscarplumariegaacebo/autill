@@ -5,11 +5,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MatButton } from '@angular/material/button';
 import { DeleteItemModalComponent } from '../../../shared/components/delete-item-modal/delete-item-modal.component';
 import { ClientsModalComponent } from '../../../shared/components/clients-modal/clients-modal.component';
+import { ErrorsComponent } from '../../../shared/components/errors/errors.component';
 
 @Component({
   selector: 'app-clients',
   standalone: true,
-  imports: [MatButton],
+  imports: [MatButton, ErrorsComponent],
   templateUrl: './clients.component.html',
   styleUrl: './clients.component.css'
 })
