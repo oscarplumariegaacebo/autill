@@ -24,6 +24,7 @@ export class BudgetModalComponent {
   apiService = inject(ApiService);
   id!:number;
   nextName!:string;
+  modalItemsArray = [];
 
   initializeForm(){
     this.budgetForm = new FormGroup({
@@ -57,10 +58,20 @@ export class BudgetModalComponent {
 
   openTaskDialog() {
     const dialogRef = this.dialog.open(BudgetDetailsComponent);
+    if(this.modalItemsArray.length > 0){
+      dialogRef.componentInstance.data = this.modalItemsArray;
+    }
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // do something
+        let sumTotalPrice = 0;
+
+        for (let i = 0; i <  result.data.length; i++) {
+          sumTotalPrice = sumTotalPrice +  result.data[i].totalConcept;
+        }
+
+        this.budgetForm.controls['price'].setValue(sumTotalPrice);
+        this.modalItemsArray = result.data;
       }
     });
   }
