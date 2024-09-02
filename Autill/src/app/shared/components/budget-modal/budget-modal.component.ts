@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from '../../../core/services/api.service';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {MatCalendar, MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { BudgetDetailsComponent } from '../budget-details/budget-details.component';
 
 @Component({
   selector: 'app-budget-modal',
@@ -35,7 +36,7 @@ export class BudgetModalComponent {
     })
   }
 
-  constructor(public dialogRef: MatDialogRef<BudgetModalComponent>, private formBuilder: FormBuilder) {
+  constructor(public dialogRef: MatDialogRef<BudgetModalComponent>, private formBuilder: FormBuilder, private dialog: MatDialog) {
     this.initializeForm();
   }
 
@@ -52,6 +53,16 @@ export class BudgetModalComponent {
         this.budgetForm.controls['name'].setValue('Prespuesto'+name.name);
       }
     })
+  }
+
+  openTaskDialog() {
+    const dialogRef = this.dialog.open(BudgetDetailsComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // do something
+      }
+    });
   }
 
   actionBudget(){
