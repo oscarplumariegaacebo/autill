@@ -23,8 +23,11 @@ export class BudgetDetailsComponent {
   onClose(): void {
     if(this.items[this.items.length - 1].totalConcept == 0){
       this.items.pop();
+      this.dialogRef.close({data: this.items});
     }
-    this.dialogRef.close({data: this.items});
+    if(this.items.length == 0){
+      this.dialogRef.close();
+    }
   }
 
   addItem(id:number){

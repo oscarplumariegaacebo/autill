@@ -72,6 +72,8 @@ export class BudgetModalComponent {
 
         this.budgetForm.controls['price'].setValue(sumTotalPrice);
         this.modalItemsArray = result.data;
+
+        this.budgetForm.controls['descriptionItems'].setValue(JSON.stringify(result.data));
       }
     });
   }
@@ -79,9 +81,10 @@ export class BudgetModalComponent {
   actionBudget(){
     this.loading = true;
     if(this.id == 0){
+      this.budgetForm.removeControl('id');
       this.apiService.addBudget(this.budgetForm.value).subscribe({
         next: () => {
-          console.log(this.budgetForm.value);
+          this.budgetForm.addControl('id', new FormControl());
         },
         complete: () => {
           window.location.reload();
