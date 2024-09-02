@@ -5,6 +5,7 @@ import { BudgetModalComponent } from '../../../shared/components/budget-modal/bu
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatButton } from '@angular/material/button';
 import { ErrorsComponent } from "../../../shared/components/errors/errors.component";
+import { DeleteItemModalComponent } from '../../../shared/components/delete-item-modal/delete-item-modal.component';
 
 @Component({
   selector: 'app-budgets',
@@ -62,8 +63,14 @@ export class BudgetsComponent {
   }
 
   deleteBudget(id:number){
-    this.apiService.deleteBudget(id).subscribe({
+    const dialogRef = this.dialog.open(DeleteItemModalComponent);
+    dialogRef.componentInstance.type = 'presupuesto'
 
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'confirm'){
+        this.apiService.deleteBudget(id).subscribe({
+        })
+      }
     })
   }
 }

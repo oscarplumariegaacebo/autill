@@ -9,6 +9,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrl: './delete-item-modal.component.css'
 })
 export class DeleteItemModalComponent {
+  type: string = '';
 
   constructor(public dialogRef: MatDialogRef<DeleteItemModalComponent>) {
   }

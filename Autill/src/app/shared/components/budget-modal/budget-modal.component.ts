@@ -49,6 +49,7 @@ export class BudgetModalComponent {
       if(this.id>0){
         this.apiService.getBudgetById(this.id).subscribe((budget:any) => {
           this.budgetForm.setValue(budget);
+          this.modalItemsArray = JSON.parse(budget.descriptionItems);
         })
       }else{
         this.budgetForm.controls['name'].setValue('Prespuesto'+name.name);
