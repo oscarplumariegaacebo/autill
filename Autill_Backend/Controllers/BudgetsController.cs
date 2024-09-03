@@ -12,10 +12,12 @@ namespace Autill.Controllers
     public class BudgetsController : ControllerBase
     {
         private readonly BudgetContext _budgetContext;
+        private readonly ClientContext _clientContext;
 
-        public BudgetsController(BudgetContext budgetContext)
+        public BudgetsController(BudgetContext budgetContext, ClientContext clientContext)
         {
             _budgetContext = budgetContext;
+            _clientContext = clientContext;
         }
 
         [HttpGet]

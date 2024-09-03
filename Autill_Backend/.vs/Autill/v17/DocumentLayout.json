@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|solutionrelative:controllers\\budgetscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|d:\\projects\\autill\\autill_backend\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|solutionrelative:controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|d:\\projects\\autill\\autill_backend\\models\\budget.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|solutionrelative:models\\budget.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|d:\\projects\\autill\\autill_backend\\data\\budgetcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|solutionrelative:data\\budgetcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|d:\\projects\\autill\\autill_backend\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|solutionrelative:controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|d:\\projects\\autill\\autill_backend\\controllers\\clientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -38,15 +38,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "BudgetContext.cs",
-              "DocumentMoniker": "D:\\projects\\Autill\\Autill_Backend\\Data\\BudgetContext.cs",
-              "RelativeDocumentMoniker": "Data\\BudgetContext.cs",
-              "ToolTip": "D:\\projects\\Autill\\Autill_Backend\\Data\\BudgetContext.cs",
-              "RelativeToolTip": "Data\\BudgetContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "DocumentIndex": 1,
+              "Title": "Budget.cs",
+              "DocumentMoniker": "D:\\projects\\Autill\\Autill_Backend\\Models\\Budget.cs",
+              "RelativeDocumentMoniker": "Models\\Budget.cs",
+              "ToolTip": "D:\\projects\\Autill\\Autill_Backend\\Models\\Budget.cs",
+              "RelativeToolTip": "Models\\Budget.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-26T21:15:31.039Z",
+              "WhenOpened": "2024-09-03T21:13:44.296Z",
               "EditorCaption": ""
             },
             {
@@ -57,9 +57,9 @@
               "RelativeDocumentMoniker": "Controllers\\BudgetsController.cs",
               "ToolTip": "D:\\projects\\Autill\\Autill_Backend\\Controllers\\BudgetsController.cs",
               "RelativeToolTip": "Controllers\\BudgetsController.cs",
-              "ViewState": "AQIAACAAAAAAAAAAAAAAADQAAAArAAAA",
+              "ViewState": "AQIAAGMAAAAAAAAAAAAAAHEAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-21T22:58:13.709Z",
+              "WhenOpened": "2024-09-03T21:08:55.909Z",
               "EditorCaption": ""
             },
             {
@@ -70,19 +70,20 @@
               "RelativeDocumentMoniker": "Controllers\\ClientsController.cs",
               "ToolTip": "D:\\projects\\Autill\\Autill_Backend\\Controllers\\ClientsController.cs",
               "RelativeToolTip": "Controllers\\ClientsController.cs",
-              "ViewState": "AQIAADQAAAAAAAAAAAAwwFAAAAAJAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-21T22:40:15.815Z"
+              "WhenOpened": "2024-08-21T22:40:15.815Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "UsersController.cs",
               "DocumentMoniker": "D:\\projects\\Autill\\Autill_Backend\\Controllers\\UsersController.cs",
               "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
               "ToolTip": "D:\\projects\\Autill\\Autill_Backend\\Controllers\\UsersController.cs",
               "RelativeToolTip": "Controllers\\UsersController.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAADUAAAARAAAA",
+              "ViewState": "AQIAABgAAAAAAAAAAAAAACIAAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-15T20:12:06.256Z",
               "EditorCaption": ""
