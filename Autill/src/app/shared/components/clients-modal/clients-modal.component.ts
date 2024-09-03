@@ -52,7 +52,11 @@ export class ClientsModalComponent {
   actionClient(){
     this.loading = true;
     if(this.id == 0){
+      this.clientForm.removeControl('id');
       this.apiService.addClient(this.clientForm.value).subscribe({
+        next: () => {
+          this.clientForm.addControl('id', new FormControl());
+        },
         complete: () => {
           window.location.reload();
         }

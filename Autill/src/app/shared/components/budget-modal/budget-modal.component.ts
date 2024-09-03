@@ -7,6 +7,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { BudgetDetailsComponent } from '../budget-details/budget-details.component';
+import { jsPDF } from "jspdf";
 
 @Component({
   selector: 'app-budget-modal',
@@ -29,6 +30,7 @@ export class BudgetModalComponent {
   initializeForm(){
     this.budgetForm = new FormGroup({
       id: new FormControl(),
+      idBusiness: new FormControl(),
       name: new FormControl(),
       price: new FormControl(),
       descriptionItems: new FormControl(),
@@ -83,13 +85,16 @@ export class BudgetModalComponent {
     this.loading = true;
     if(this.id == 0){
       this.budgetForm.removeControl('id');
-      this.apiService.addBudget(this.budgetForm.value).subscribe({
-        next: () => {
-          this.budgetForm.addControl('id', new FormControl());
-        },
-        complete: () => {
-          window.location.reload();
-        }
+      this.apiService.getUserByEmail(localStorage.getItem('email') || "[]").subscribe((user:any) => {
+        this.budgetForm.controls['idBusiness'].setValue(user.id);
+          this.apiService.addBudget(this.budgetForm.value).subscribe({
+            next: () => {
+              this.budgetForm.addControl('id', new FormControl());
+            },
+            complete: () => {
+              window.location.reload();
+            }
+          })
       })
     }else{
       this.apiService.editClient(this.id, this.budgetForm.value).subscribe({
@@ -100,6 +105,15 @@ export class BudgetModalComponent {
         }
       })
     }
+  }
+
+  generatePDF(){
+    const doc = new jsPDF();
+  
+    console.log(this.budgetForm.value);
+
+    /*doc.text("Hello world", 10, 10);
+    doc.save("a4.pdf");*/
   }
 
   onClose(): void {
