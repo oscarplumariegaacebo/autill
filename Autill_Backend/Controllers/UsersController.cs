@@ -27,7 +27,22 @@ namespace Autill.Controllers
             return await _userContext.Users.ToListAsync();
         }
 
-        [HttpGet("{Email}")]
+        [HttpGet("{id}")]
+        public async Task<ActionResult<User>> GetUser(string id)
+        {
+            if (_userContext.Users is null)
+            {
+                return NotFound();
+            }
+            var user = _userContext.Users.FirstOrDefault(s => s.Id == id);
+            if (user is null)
+            {
+                return NotFound();
+            }
+            return user;
+        }
+
+        [HttpGet("byEmail/{Email}")]
         public async Task<ActionResult<User>> GetUserByEmail(string email)
         {
             if (_userContext.Users is null)

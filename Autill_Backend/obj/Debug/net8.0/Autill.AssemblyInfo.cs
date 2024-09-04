@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Autill")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bffb31b3539b12e5dfa8fe1ea9d28e6e20fa33b1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+788efc687a8d09a43682040b14d124b34d8f1882")]
 [assembly: System.Reflection.AssemblyProductAttribute("Autill")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Autill")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
