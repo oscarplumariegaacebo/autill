@@ -53,8 +53,11 @@ export class ApiService {
     return this.http.post(this.api+auth_action, user);
   }
 
-  getUserByEmail(email: string): Observable<UserResponse> {
-    return this.http.get<UserResponse>(this.api+'api/Users/'+email);
+  getUserByEmail(email: string) {
+    return this.http.get(this.api+'api/Users/byEmail/'+email);
+  }
+  getUserById(id: string) {
+    return this.http.get(this.api+'api/Users/'+id);
   }
 
   editUser(user: any){

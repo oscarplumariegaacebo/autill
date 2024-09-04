@@ -2,12 +2,13 @@ import { Component, inject } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from '../../../core/services/api.service';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import {MatCalendar, MatDatepickerModule} from '@angular/material/datepicker';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { MatCalendar, MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { BudgetDetailsComponent } from '../budget-details/budget-details.component';
 import { jsPDF } from "jspdf";
+import { User } from '../../../core/models/User';
 
 @Component({
   selector: 'app-budget-modal',
@@ -19,15 +20,15 @@ import { jsPDF } from "jspdf";
 })
 export class BudgetModalComponent {
   budgetForm!: FormGroup
-  err:any | null;
-  loading:boolean = false;
-  clients:any = [];
+  err: any | null;
+  loading: boolean = false;
+  clients: any = [];
   apiService = inject(ApiService);
-  id!:number;
-  nextName!:string;
+  id!: number;
+  nextName!: string;
   modalItemsArray = [];
 
-  initializeForm(){
+  initializeForm() {
     this.budgetForm = new FormGroup({
       id: new FormControl(),
       idBusiness: new FormControl(),
@@ -44,24 +45,24 @@ export class BudgetModalComponent {
   }
 
   ngOnInit() {
-    this.apiService.getClients().subscribe((clients:any) => {
+    this.apiService.getClients().subscribe((clients: any) => {
       this.clients = clients;
     })
-    this.apiService.nextBudgetName().subscribe((name:any) => {
-      if(this.id>0){
-        this.apiService.getBudgetById(this.id).subscribe((budget:any) => {
+    this.apiService.nextBudgetName().subscribe((name: any) => {
+      if (this.id > 0) {
+        this.apiService.getBudgetById(this.id).subscribe((budget: any) => {
           this.budgetForm.setValue(budget);
           this.modalItemsArray = JSON.parse(budget.descriptionItems);
         })
-      }else{
-        this.budgetForm.controls['name'].setValue('Prespuesto'+name.name);
+      } else {
+        this.budgetForm.controls['name'].setValue('Prespuesto' + name.name);
       }
     })
   }
 
   openTaskDialog() {
     const dialogRef = this.dialog.open(BudgetDetailsComponent);
-    if(this.modalItemsArray.length > 0){
+    if (this.modalItemsArray.length > 0) {
       dialogRef.componentInstance.data = this.modalItemsArray;
     }
 
@@ -69,8 +70,8 @@ export class BudgetModalComponent {
       if (result) {
         let sumTotalPrice = 0;
 
-        for (let i = 0; i <  result.data.length; i++) {
-          sumTotalPrice = sumTotalPrice +  result.data[i].totalConcept;
+        for (let i = 0; i < result.data.length; i++) {
+          sumTotalPrice = sumTotalPrice + result.data[i].totalConcept;
         }
 
         this.budgetForm.controls['price'].setValue(sumTotalPrice);
@@ -81,22 +82,22 @@ export class BudgetModalComponent {
     });
   }
 
-  actionBudget(){
+  actionBudget() {
     this.loading = true;
-    if(this.id == 0){
+    if (this.id == 0) {
       this.budgetForm.removeControl('id');
-      this.apiService.getUserByEmail(localStorage.getItem('email') || "[]").subscribe((user:any) => {
+      this.apiService.getUserByEmail(localStorage.getItem('email') || "[]").subscribe((user: any) => {
         this.budgetForm.controls['idBusiness'].setValue(user.id);
-          this.apiService.addBudget(this.budgetForm.value).subscribe({
-            next: () => {
-              this.budgetForm.addControl('id', new FormControl());
-            },
-            complete: () => {
-              window.location.reload();
-            }
-          })
+        this.apiService.addBudget(this.budgetForm.value).subscribe({
+          next: () => {
+            this.budgetForm.addControl('id', new FormControl());
+          },
+          complete: () => {
+            window.location.reload();
+          }
+        })
       })
-    }else{
+    } else {
       this.apiService.editClient(this.id, this.budgetForm.value).subscribe({
         complete: () => {
           setTimeout(() => {
@@ -107,13 +108,35 @@ export class BudgetModalComponent {
     }
   }
 
-  generatePDF(){
-    const doc = new jsPDF();
-  
-    console.log(this.budgetForm.value);
+  generatePDF() {
+    this.apiService.getUserById(this.budgetForm.controls['idBusiness'].value).subscribe((user: any) => {
+      this.apiService.getClientById(this.budgetForm.controls['clientId'].value).subscribe({
+        next: (client:any) =>{
+          const doc = new jsPDF();
 
-    /*doc.text("Hello world", 10, 10);
-    doc.save("a4.pdf");*/
+          doc.setFontSize(28);
+          //title
+          doc.text(this.budgetForm.controls['name'].value, 10, 10);
+  
+          doc.setFontSize(14);
+          //user data
+          doc.text(user.fullName, 10, 20);
+          doc.text(user.email, 10, 30);
+          doc.text(user.cif, 10, 40);
+          doc.text(user.address, 10, 50);
+          doc.text(user.phoneNumber, 10, 60);
+  
+          //client data
+          doc.text(client.name, 120, 20);
+          doc.text(client.email, 120, 30);
+          doc.text(client.cif, 120, 40);
+          doc.text(client.address, 120, 50);
+          doc.text(client.phoneNumber, 120, 60);
+  
+          doc.save("a4.pdf");
+        } 
+      })
+    });
   }
 
   onClose(): void {
