@@ -12,8 +12,8 @@
                             <th scope="col" class="px-10 py-3">cliente</th>
                             <th scope="col" class="px-8 py-3">fecha</th>
                             <th scope="col" class="px-8 py-3">precio</th>
-                            <th scope="col" class="px-1 py-3">
-                                <button (click)="openTaskDialog(0)"
+                            <th scope="col" class="flex justify-center px-1 py-3">
+                                <button (click)="openTaskDialog('',0)"
                                     class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                                     <svg class="svg-icon" viewBox="0 0 20 20">
                                         <path
@@ -40,12 +40,15 @@
                             <td class="px-6 py-4">
                                 {{ b.price }}
                             </td>
-                            <td class="px-10 py-3">
-                                <button (click)="openTaskDialog(b.id)" mat-flat-button>
+                            <td class="flex justify-center px-10 py-3">
+                                <button (click)="openTaskDialog('edit',b.id)" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
                                     Editar
                                 </button>
-                                <button (click)="deleteBudget(b.id)" class="ml-2" color="warn" mat-flat-button>
+                                <button (click)="deleteBudget(b.id)" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
                                     Eliminar
+                                </button>
+                                <button (click)="openTaskDialog('generateBill',b.id)" class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                                    Generar Factura
                                 </button>
                             </td>
                         </tr>
@@ -56,7 +59,7 @@
             }@else {
             <div class="flex items-center justify-center h-screen">
                 <p class="text-center">No hay presupuestos.</p>
-                <button (click)="openTaskDialog(0)"
+                <button (click)="openTaskDialog('',0)"
                     class="hover:bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                     <svg class="svg-icon" viewBox="0 0 20 20">
                         <path

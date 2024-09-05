@@ -27,6 +27,7 @@ export class BudgetModalComponent {
   id!: number;
   nextName!: string;
   modalItemsArray = [];
+  action:string = '';
 
   initializeForm() {
     this.budgetForm = new FormGroup({
@@ -141,5 +142,9 @@ export class BudgetModalComponent {
 
   onClose(): void {
     this.dialogRef.close();
+  }
+
+  generateBill(){
+
   }
 }

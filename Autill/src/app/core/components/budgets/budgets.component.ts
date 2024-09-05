@@ -50,9 +50,10 @@ export class BudgetsComponent {
     })
   }
 
-  openTaskDialog(id: number) {
+  openTaskDialog(action:string, id: number) {
     const dialogRef = this.dialog.open(BudgetModalComponent);
     dialogRef.componentInstance.id = id;
+    dialogRef.componentInstance.action = action;
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

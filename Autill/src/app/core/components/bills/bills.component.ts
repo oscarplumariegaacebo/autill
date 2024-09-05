@@ -8,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrl: './bills.component.css'
 })
 export class BillsComponent {
+  bills: any = [];
+
+  openTaskDialog(n:string, id:number){
+
+  }
+
+  deleteBill(id:number){
+
+  }
 
 }
