@@ -145,6 +145,11 @@ export class BudgetModalComponent {
   }
 
   generateBill(){
-
+    console.log(this.id);
+    this.apiService.cloneRegister(this.id).subscribe({
+        complete: () => {
+          console.log('done!');
+        }
+    })
   }
 }

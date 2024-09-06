@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-bills',
@@ -9,6 +10,7 @@ import { Component } from '@angular/core';
 })
 export class BillsComponent {
   bills: any = [];
+  apiService = inject(ApiService);
 
   openTaskDialog(n:string, id:number){
 
