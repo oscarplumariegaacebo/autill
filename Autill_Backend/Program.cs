@@ -27,6 +27,9 @@ builder.Services.AddDbContext<ClientContext>(options =>
 builder.Services.AddDbContext<BudgetContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddDbContext<BillContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddAuthentication();
 
 builder.Services.AddIdentityApiEndpoints<User>()
