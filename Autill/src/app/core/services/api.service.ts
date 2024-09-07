@@ -94,6 +94,6 @@ export class ApiService {
     return this.http.get(this.api+'api/Budgets/'+id);
   }
   cloneRegister(id:number){
-    return this.http.get(this.api+'api/Bills/clone/'+id);
+    return this.http.post(this.api+'api/Bills/clone',id);
   }
 }
