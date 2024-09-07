@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Autill.Migrations.Bill
 {
     [DbContext(typeof(BillContext))]
-    [Migration("20240906130520_Bill")]
+    [Migration("20240907152114_Bill")]
     partial class Bill
     {
         /// <inheritdoc />
@@ -42,6 +42,9 @@ namespace Autill.Migrations.Bill
                     b.Property<string>("DescriptionItems")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdBudget")
+                        .HasColumnType("int");
 
                     b.Property<string>("IdBusiness")
                         .IsRequired()

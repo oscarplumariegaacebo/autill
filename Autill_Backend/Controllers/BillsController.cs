@@ -1,5 +1,7 @@
 ﻿using Autill.Data;
+using Autill.Migrations.Budget;
 using Autill.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +14,12 @@ namespace Autill.Controllers
     {
 
         private readonly BillContext _billContext;
+        private readonly BudgetContext _budgetContext;
 
-        public BillsController(BillContext billContext)
+        public BillsController(BillContext billContext, BudgetContext budgetContext)
         {
             _billContext = billContext;
+            _budgetContext = budgetContext; 
         }
 
         [HttpGet]
@@ -24,14 +28,29 @@ namespace Autill.Controllers
             return await _billContext.Bills.ToListAsync();
         }
 
-        [HttpGet("clone/{id}")]
-        public async Task<ActionResult<IEnumerable<Bill>>> CloneBudget(int budgetId)
+        [HttpPost("clone")]
+        public async Task<ActionResult<Bill>> CloneBudget([FromBody]int budgetId)
         {
-            var columnName = "Id";
-            var columnValue = new SqlParameter("columnValue", budgetId);
+            var budgetToClone = await _budgetContext.Budgets.FindAsync(budgetId);
 
-            string sql = $"INSERT INTO Bills (IdBusiness, Name, ClientId, Date, DescriptionItems, Price) SELECT IdBusiness, Name, ClientId, Date, DescriptionItems, Price FROM Budgets WHERE {columnName} = @columnValue";
-            return await _billContext.Bills.FromSqlRaw(sql, columnValue).ToListAsync();
+            if (budgetToClone != null)
+            {
+                var bill = new Bill();
+                bill.IdBusiness = budgetToClone.IdBusiness;
+                bill.Name = budgetToClone.Name;
+                bill.Price = budgetToClone.Price;
+                bill.IdBudget = budgetToClone.Id;
+                bill.DescriptionItems = budgetToClone.DescriptionItems;
+                bill.ClientId = budgetToClone.ClientId;
+                bill.Date = budgetToClone.Date;
+
+                _billContext.Bills.Add(bill);
+                await _billContext.SaveChangesAsync();
+                return bill;
+            }
+
+            return null;
+
         }
     }
 }

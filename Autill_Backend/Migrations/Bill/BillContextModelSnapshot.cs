@@ -40,6 +40,9 @@ namespace Autill.Migrations.Bill
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("IdBudget")
+                        .HasColumnType("int");
+
                     b.Property<string>("IdBusiness")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
