@@ -1,11 +1,8 @@
 ﻿using Autill.Data;
 using Autill.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System.Net.NetworkInformation;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace Autill.Controllers
 {

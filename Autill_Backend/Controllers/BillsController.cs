@@ -1,5 +1,4 @@
 ﻿using Autill.Data;
-using Autill.Migrations.Budget;
 using Autill.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;

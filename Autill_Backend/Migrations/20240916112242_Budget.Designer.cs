@@ -3,16 +3,19 @@ using Autill.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Autill.Migrations.Bill
+namespace Autill.Migrations
 {
-    [DbContext(typeof(BillContext))]
-    partial class BillContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(BudgetContext))]
+    [Migration("20240916112242_Budget")]
+    partial class Budget
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +24,7 @@ namespace Autill.Migrations.Bill
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Autill.Models.Bill", b =>
+            modelBuilder.Entity("Autill.Models.Budget", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,6 +35,10 @@ namespace Autill.Migrations.Bill
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ClientName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Date")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -39,9 +46,6 @@ namespace Autill.Migrations.Bill
                     b.Property<string>("DescriptionItems")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("IdBudget")
-                        .HasColumnType("int");
 
                     b.Property<string>("IdBusiness")
                         .IsRequired()
@@ -56,7 +60,7 @@ namespace Autill.Migrations.Bill
 
                     b.HasKey("Id");
 
-                    b.ToTable("Bills");
+                    b.ToTable("Budgets");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Autill.Migrations.Budget
+namespace Autill.Migrations
 {
     /// <inheritdoc />
     public partial class Budget : Migration
@@ -19,6 +19,7 @@ namespace Autill.Migrations.Budget
                     IdBusiness = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: false),
+                    ClientName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DescriptionItems = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false)
