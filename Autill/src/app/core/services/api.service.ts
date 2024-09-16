@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
-import { User } from '../models/User';
-import { BudgetResults } from '../models/budget';
-
-type UserResponse = {
-  result: User;
-}
+import { Budget, BudgetResults } from '../models/Budget';
+import { Item } from '../models/Item';
 
 interface UserEdit {
   email: string;
@@ -26,15 +22,6 @@ interface Client{
   country: string,
   cif: string,
   phoneNumber: number
-}
-
-interface Budget{
-  id: number,
-  name: string,
-  clientId: number,
-  price: number,
-  descriptionItems: string,
-  date: string
 }
 
 @Injectable({
@@ -98,5 +85,11 @@ export class ApiService {
   }
   getBills(){
     return this.http.get(this.api+'api/Bills')
+  }
+  getItems(){
+    return this.http.get(this.api+'api/Item')
+  }
+  addItem(item:Item){
+    return this.http.post<Item>(this.api+'api/Item', item)
   }
 }

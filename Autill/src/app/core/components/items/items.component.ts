@@ -21,13 +21,14 @@ export class ItemsComponent {
   constructor(private dialog: MatDialog){}
 
   ngOnInit() {
-
+    this.apiService.getItems().subscribe((items:any) => {
+      this.items = items;
+    })
   }
 
   openTaskDialog(action:string, id: number) {
     const dialogRef = this.dialog.open(ItemModalComponent);
-    /*dialogRef.componentInstance.id = id;
-    dialogRef.componentInstance.action = action;*/
+    dialogRef.componentInstance.id = id;
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
