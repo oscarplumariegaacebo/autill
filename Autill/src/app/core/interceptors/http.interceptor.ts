@@ -7,10 +7,8 @@ export const httpInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
       let errorMessage = '';
 
       if(error.error instanceof ErrorEvent){
-        console.error('An error occurred', error.error.message);
         errorMessage = error.error.message;
       }else{
-        console.error('Backend returned code '+error.status, "Message: "+error.message);
         errorMessage = 'Backend returned code '+error.status+ "Message: "+error.message;
       }
 

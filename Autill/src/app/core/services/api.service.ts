@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { catchError, Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
 import { User } from '../models/User';
+import { BudgetResults } from '../models/budget';
 
 type UserResponse = {
   result: User;
@@ -59,12 +60,11 @@ export class ApiService {
   getUserById(id: string) {
     return this.http.get(this.api+'api/Users/'+id);
   }
-
   editUser(user: any){
     return this.http.put<UserEdit>(this.api+'api/Users', user);
   }
-  getBudgets(){
-    return this.http.get(this.api+'api/Budgets');
+  getBudgets(): Observable<BudgetResults>{
+    return this.http.get<BudgetResults>(this.api+'api/Budgets');
   }
   nextBudgetName(){
     return this.http.get(this.api+'api/Budgets/nextName');

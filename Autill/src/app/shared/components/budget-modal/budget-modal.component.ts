@@ -37,6 +37,7 @@ export class BudgetModalComponent {
       price: new FormControl(),
       descriptionItems: new FormControl(),
       clientId: new FormControl(),
+      clientName: new FormControl(),
       date: new FormControl()
     })
   }
@@ -86,9 +87,16 @@ export class BudgetModalComponent {
   actionBudget() {
     this.loading = true;
     if (this.id == 0) {
+      for (let i = 0; i < this.clients.length; i++) {
+        if(this.clients[i].id == this.budgetForm.controls['clientId'].value){
+          this.budgetForm.controls['clientName'].setValue(this.clients[i].name);
+        }
+      }
+
       this.budgetForm.removeControl('id');
       this.apiService.getUserByEmail(localStorage.getItem('email') || "[]").subscribe((user: any) => {
         this.budgetForm.controls['idBusiness'].setValue(user.id);
+
         this.apiService.addBudget(this.budgetForm.value).subscribe({
           next: () => {
             this.budgetForm.addControl('id', new FormControl());
