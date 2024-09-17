@@ -24,6 +24,8 @@ export class BudgetDetailsComponent {
   apiService = inject(ApiService);
   myControl = new FormControl('');
   filteredOptions!: Observable<any[]>;
+  lastOptionIdSelected:number = 0;
+  lasItemAdded: any = {};
 
   constructor(public dialogRef: MatDialogRef<BudgetDetailsComponent>){}
 
@@ -46,20 +48,33 @@ export class BudgetDetailsComponent {
   }
 
   addItem(id:number){
-    let nameInput = document.getElementById('name'+id) as HTMLInputElement;
     let unitsInput = document.getElementById('units'+id) as HTMLInputElement;
-    let priceInput = document.getElementById('priceTD'+id) as HTMLInputElement; 
 
-    this.items[id].name = nameInput.value;
+    this.items[id].name = this.lasItemAdded.name;
     this.items[id].units = parseFloat(unitsInput.value);
-    this.items[id].price = parseFloat(priceInput.value);
-    this.items[id].totalConcept = parseFloat(unitsInput.value) * parseFloat(priceInput.value);
+    this.items[id].price = parseFloat(this.lasItemAdded.priceU);
+    this.items[id].totalConcept = parseFloat(unitsInput.value) * parseFloat(this.lasItemAdded.priceU.value);
 
     this.items.push({id: id+1, name: '', units: 0, price: 0, totalConcept: 0});
+
+    this.myControl.reset();
+  }
+
+  changeSelection(id: number){
+    this.lastOptionIdSelected = id;
   }
 
   private _filter(value: any): any[] {
     const filterValue = value.toLowerCase();
+
+    let itemSelected = this.dbItems.find((item:any) => item.name === value)!;
+
+    if(itemSelected !== undefined) {
+      let priceElement = document.getElementById(`priceTD${this.lastOptionIdSelected}`)! as HTMLInputElement;
+      priceElement.value = itemSelected.priceU;
+    }
+
+    this.lasItemAdded = itemSelected;
 
     return this.dbItems.filter((option:any) => option.name.toLowerCase().includes(filterValue));
   }
