@@ -28,6 +28,7 @@ export class BudgetModalComponent {
   nextName!: string;
   modalItemsArray = [];
   action:string = '';
+  dbItems = [];
 
   initializeForm() {
     this.budgetForm = new FormGroup({
@@ -50,6 +51,9 @@ export class BudgetModalComponent {
     this.apiService.getClients().subscribe((clients: any) => {
       this.clients = clients;
     })
+    this.apiService.getItems().subscribe((data:any) => {
+      this.dbItems = data;
+    })
     this.apiService.nextBudgetName().subscribe((name: any) => {
       if (this.id > 0) {
         this.apiService.getBudgetById(this.id).subscribe((budget: any) => {
@@ -66,6 +70,7 @@ export class BudgetModalComponent {
     const dialogRef = this.dialog.open(BudgetDetailsComponent);
     if (this.modalItemsArray.length > 0) {
       dialogRef.componentInstance.data = this.modalItemsArray;
+      dialogRef.componentInstance.dbItems = this.dbItems;
     }
 
     dialogRef.afterClosed().subscribe(result => {

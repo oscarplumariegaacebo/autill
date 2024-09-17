@@ -1,16 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { ApiService } from '../../../core/services/api.service';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {AsyncPipe} from '@angular/common';
+import { map, Observable, startWith } from 'rxjs';
+
 
 @Component({
   selector: 'app-budget-details',
   standalone: true,
-  imports: [],
+  imports: [FormsModule,MatFormFieldModule,MatInputModule,MatAutocompleteModule,ReactiveFormsModule,AsyncPipe],
   templateUrl: './budget-details.component.html',
   styleUrl: './budget-details.component.css'
 })
 export class BudgetDetailsComponent {
   items = [{id: 0, name: '', units: 0, price: 0, totalConcept: 0}];
   data = [];
+  dbItems:any = [];
+  apiService = inject(ApiService);
+  myControl = new FormControl('');
+  filteredOptions!: Observable<any[]>;
 
   constructor(public dialogRef: MatDialogRef<BudgetDetailsComponent>){}
 
@@ -18,6 +31,11 @@ export class BudgetDetailsComponent {
     if(this.data.length > 0){
       this.items = this.data;
     }
+
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
   }
 
   onClose(): void {
@@ -38,5 +56,11 @@ export class BudgetDetailsComponent {
     this.items[id].totalConcept = parseFloat(unitsInput.value) * parseFloat(priceInput.value);
 
     this.items.push({id: id+1, name: '', units: 0, price: 0, totalConcept: 0});
+  }
+
+  private _filter(value: any): any[] {
+    const filterValue = value.toLowerCase();
+
+    return this.dbItems.filter((option:any) => option.name.toLowerCase().includes(filterValue));
   }
 }
