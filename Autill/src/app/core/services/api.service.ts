@@ -71,6 +71,9 @@ export class ApiService {
   editClient(id:number, client:any){
     return this.http.put(this.api+'api/Clients/'+id, client)
   }
+  editBudget(id:number, budget:Budget){
+    return this.http.put(this.api+'api/Budgets/'+id, budget)
+  }
   addBudget(budget:Budget){
     return this.http.post<Budget>(this.api+'api/Budgets', budget)
   }

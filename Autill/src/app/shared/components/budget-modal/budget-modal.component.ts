@@ -112,7 +112,7 @@ export class BudgetModalComponent {
         })
       })
     } else {
-      this.apiService.editClient(this.id, this.budgetForm.value).subscribe({
+      this.apiService.editBudget(this.id, this.budgetForm.value).subscribe({
         complete: () => {
           setTimeout(() => {
             window.location.reload();

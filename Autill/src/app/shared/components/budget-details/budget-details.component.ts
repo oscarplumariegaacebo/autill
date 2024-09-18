@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { ApiService } from '../../../core/services/api.service';
@@ -53,11 +53,9 @@ export class BudgetDetailsComponent {
     this.items[id].name = this.lasItemAdded.name;
     this.items[id].units = parseFloat(unitsInput.value);
     this.items[id].price = parseFloat(this.lasItemAdded.priceU);
-    this.items[id].totalConcept = parseFloat(unitsInput.value) * parseFloat(this.lasItemAdded.priceU.value);
+    this.items[id].totalConcept = parseFloat(unitsInput.value) * parseFloat(this.lasItemAdded.priceU);
 
     this.items.push({id: id+1, name: '', units: 0, price: 0, totalConcept: 0});
-
-    this.myControl.reset();
   }
 
   changeSelection(id: number){
