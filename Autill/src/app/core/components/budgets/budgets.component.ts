@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BudgetModalComponent } from '../../../shared/components/budget-modal/budget-modal.component';
@@ -7,11 +7,12 @@ import { MatButton } from '@angular/material/button';
 import { ErrorsComponent } from "../../../shared/components/errors/errors.component";
 import { DeleteItemModalComponent } from '../../../shared/components/delete-item-modal/delete-item-modal.component';
 import { CommonService } from '../../services/common-service.service';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-budgets',
   standalone: true,
-  imports: [MatButton, ErrorsComponent],
+  imports: [MatButton, ErrorsComponent, MatPaginatorModule],
   templateUrl: './budgets.component.html',
   styleUrl: './budgets.component.css'
 })

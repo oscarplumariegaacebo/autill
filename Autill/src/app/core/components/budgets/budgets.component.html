@@ -58,6 +58,12 @@
                         }
                     </tbody>
                 </table>
+                <mat-paginator
+                    [length]="budgets.length"
+                    [pageSize]="10"
+                    [pageSizeOptions]="[10, 25, 100]"
+                    aria-label="Select page">
+                </mat-paginator>
             </div>
             }@else {
             <div class="flex items-center justify-center h-screen">

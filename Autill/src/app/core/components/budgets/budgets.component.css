@@ -1,0 +1,6 @@
+.mat-mdc-paginator{
+    display: flex;
+    justify-content: end;
+    background-color: #9ca3af2f;
+    color: white;
+}
