@@ -39,13 +39,10 @@ export class ItemsComponent {
 
   deleteItem(id:number){
     const dialogRef = this.dialog.open(DeleteItemModalComponent);
-    dialogRef.componentInstance.type = 'presupuesto'
+    dialogRef.componentInstance.type = 'el producto'
+    dialogRef.componentInstance.id = id;
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result == 'confirm'){
-        this.apiService.deleteBudget(id).subscribe({
-        })
-      }
     })
   }
 }

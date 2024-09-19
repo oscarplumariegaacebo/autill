@@ -80,6 +80,12 @@ export class ApiService {
   deleteBudget(id: number){
     return this.http.delete(this.api+'api/Budgets/'+id);
   }
+  deleteBill(id: number){
+    return this.http.delete(this.api+'api/Bills/'+id);
+  }
+  deleteProduct(id: number){
+    return this.http.delete(this.api+'api/Item/'+id);
+  }
   getBudgetById(id: number){
     return this.http.get(this.api+'api/Budgets/'+id);
   }

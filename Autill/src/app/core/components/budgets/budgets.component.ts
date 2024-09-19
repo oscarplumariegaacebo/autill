@@ -57,7 +57,8 @@ export class BudgetsComponent {
 
   deleteBudget(id: number) {
     const dialogRef = this.dialog.open(DeleteItemModalComponent);
-    dialogRef.componentInstance.type = 'presupuesto'
+    dialogRef.componentInstance.type = 'el presupuesto'
+    dialogRef.componentInstance.id = id;
 
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'confirm') {
