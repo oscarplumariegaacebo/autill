@@ -9,7 +9,7 @@ namespace Autill.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BillsController
+    public class BillsController : ControllerBase
     {
 
         private readonly BillContext _billContext;
@@ -50,6 +50,19 @@ namespace Autill.Controllers
 
             return null;
 
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBill(int id)
+        {
+            var bill = await _billContext.Bills.FindAsync(id);
+            if (bill == null)
+            {
+                return NotFound();
+            }
+            _billContext.Bills.Remove(bill);
+            await _billContext.SaveChangesAsync();
+            return NoContent();
         }
     }
 }

@@ -40,5 +40,18 @@ namespace Autill.Controllers
             await _itemContext.SaveChangesAsync();
             return CreatedAtAction(nameof(GetItem), new { id = item.Id }, item);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteItem(int id)
+        {
+            var item = await _itemContext.Items.FindAsync(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            _itemContext.Items.Remove(item);
+            await _itemContext.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }
