@@ -2,7 +2,7 @@ import { Component, inject, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { ApiService } from '../../../core/services/api.service';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -26,15 +26,25 @@ export class BudgetDetailsComponent {
   filteredOptions!: Observable<any[]>;
   lastOptionIdSelected:number = 0;
   lasItemAdded: any = {};
+  detailsForm!: FormGroup;
 
-  constructor(public dialogRef: MatDialogRef<BudgetDetailsComponent>){}
+  initializeForm(){
+    this.detailsForm = new FormGroup({
+      detailInput0: new FormControl()
+    })
+  }
+
+  constructor(public dialogRef: MatDialogRef<BudgetDetailsComponent>){
+    this.initializeForm();
+  }
 
   ngOnInit() {
+    document.getElementById("detailInput0")?.setAttribute("[formControl]","detailInput0");
     if(this.data.length > 0){
       this.items = this.data;
     }
 
-    this.filteredOptions = this.myControl.valueChanges.pipe(
+    this.filteredOptions = this.detailsForm.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || '')),
     );
@@ -58,8 +68,9 @@ export class BudgetDetailsComponent {
     this.items.push({id: id+1, name: '', units: 0, price: 0, totalConcept: 0});
   }
 
-  changeSelection(id: number){
+  changeSelection(id: number, name: string){
     this.lastOptionIdSelected = id;
+    this._filter(name);
   }
 
   private _filter(value: any): any[] {

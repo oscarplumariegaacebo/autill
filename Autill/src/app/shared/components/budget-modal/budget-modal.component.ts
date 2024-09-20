@@ -68,6 +68,7 @@ export class BudgetModalComponent {
     const dialogRef = this.dialog.open(BudgetDetailsComponent);
     if (this.modalItemsArray.length > 0) {
       dialogRef.componentInstance.data = this.modalItemsArray;
+    }else{
       dialogRef.componentInstance.dbItems = this.dbItems;
     }
 
