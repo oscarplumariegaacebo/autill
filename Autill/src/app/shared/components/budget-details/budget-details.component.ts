@@ -44,6 +44,11 @@ export class BudgetDetailsComponent {
       this.items = this.data;
     }
 
+    for (let i = 0; i < this.items.length; i++) {
+      let input = document.getElementById(`detailInput${i}`)! as HTMLInputElement;
+      input.value = this.items[i].name;
+    }
+
     this.filteredOptions = this.detailsForm.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || '')),
