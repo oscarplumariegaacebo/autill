@@ -10,7 +10,14 @@ export class CommonService {
 
   constructor() { }
 
-  generatePDF(id:number){
+  generatePDF(type:string, id:number){
+    let title = '';
+    if(type === 'bill') {
+      title = 'Factura'
+    }else {
+      title = 'Presupuesto'
+    }
+
     this.apiService.getBudgetById(id).subscribe((budget:any) => {
       this.apiService.getUserById(budget.idBusiness).subscribe((user: any) => {
         this.apiService.getClientById(budget.clientId).subscribe({
@@ -19,7 +26,7 @@ export class CommonService {
   
             doc.setFontSize(28);
             //title
-            doc.text(budget.name, 10, 10);
+            doc.text(title + ' - ' + budget.name.split('-').pop(), 10, 10);
     
             doc.setFontSize(14);
             //user data

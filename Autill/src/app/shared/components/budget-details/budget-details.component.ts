@@ -27,6 +27,7 @@ export class BudgetDetailsComponent {
   lastOptionIdSelected:number = 0;
   lasItemAdded: any = {};
   detailsForm!: FormGroup;
+  nameDefault: string = '';
 
   initializeForm(){
     this.detailsForm = new FormGroup({
@@ -39,14 +40,18 @@ export class BudgetDetailsComponent {
   }
 
   ngOnInit() {
-    document.getElementById("detailInput0")?.setAttribute("[formControl]","detailInput0");
     if(this.data.length > 0){
       this.items = this.data;
     }
 
     for (let i = 0; i < this.items.length; i++) {
-      let input = document.getElementById(`detailInput${i}`)! as HTMLInputElement;
-      input.value = this.items[i].name;
+      this.nameDefault = this.items[i].name;
+      
+      if(i > 0){
+        this.detailsForm.addControl(`detailInput${i}`, new FormControl());
+      }
+
+      this.detailsForm.controls[`detailInput${i}`].setValue(this.items[i]);
     }
 
     this.filteredOptions = this.detailsForm.valueChanges.pipe(
@@ -65,10 +70,12 @@ export class BudgetDetailsComponent {
   addItem(id:number){
     let unitsInput = document.getElementById('units'+id) as HTMLInputElement;
 
-    this.items[id].name = this.lasItemAdded.name;
-    this.items[id].units = parseFloat(unitsInput.value);
-    this.items[id].price = parseFloat(this.lasItemAdded.priceU);
-    this.items[id].totalConcept = parseFloat(unitsInput.value) * parseFloat(this.lasItemAdded.priceU);
+    if(this.lasItemAdded != undefined){
+      this.items[id].name = this.lasItemAdded.name;
+      this.items[id].units = parseFloat(unitsInput.value);
+      this.items[id].price = parseFloat(this.lasItemAdded.priceU);
+      this.items[id].totalConcept = parseFloat(unitsInput.value) * parseFloat(this.lasItemAdded.priceU);
+    }
 
     this.items.push({id: id+1, name: '', units: 0, price: 0, totalConcept: 0});
   }

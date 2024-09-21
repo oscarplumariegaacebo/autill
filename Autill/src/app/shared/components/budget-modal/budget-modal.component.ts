@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { BudgetDetailsComponent } from '../budget-details/budget-details.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-budget-modal',
@@ -41,7 +42,7 @@ export class BudgetModalComponent {
     })
   }
 
-  constructor(public dialogRef: MatDialogRef<BudgetModalComponent>, private formBuilder: FormBuilder, private dialog: MatDialog) {
+  constructor(public dialogRef: MatDialogRef<BudgetModalComponent>, private formBuilder: FormBuilder, private dialog: MatDialog, private router: Router) {
     this.initializeForm();
   }
 
@@ -129,8 +130,9 @@ export class BudgetModalComponent {
     this.loading = true;
     this.apiService.cloneRegister(this.id).subscribe({
         complete: () => {
-          alert('factura creada');
           this.loading = false;
+          this.onClose();
+          this.router.navigate(['/bills']);
         }
     })
   }

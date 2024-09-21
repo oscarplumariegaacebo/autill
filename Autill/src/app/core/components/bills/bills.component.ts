@@ -3,6 +3,7 @@ import { ApiService } from '../../services/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DeleteItemModalComponent } from '../../../shared/components/delete-item-modal/delete-item-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CommonService } from '../../services/common-service.service';
 
 @Component({
   selector: 'app-bills',
@@ -16,11 +17,12 @@ export class BillsComponent {
   apiService = inject(ApiService);
   errorMessage: string = "";
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, public commonService: CommonService) {}
 
   ngOnInit() {
     this.apiService.getBills().subscribe({
       next: (data:any) => {
+        console.log(data);
         for (let i = 0; i < data.length; i++) {
           this.apiService.getClients().subscribe((clients:any) =>{
             for (let x = 0; x < clients.length; x++) {

@@ -27,9 +27,8 @@
                                    id="detailInput{{i.id}}"
                                    [matAutocomplete]="auto">
                             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                                <mat-option value=""></mat-option>
                               @for (dbi of filteredOptions | async; track dbi) {
-                                <mat-option (onSelectionChange)="changeSelection(i.id, dbi.name)" id="{{i.id}}" [value]="dbi.name">{{dbi.name}}</mat-option>
+                                <mat-option (onSelectionChange)="changeSelection(i.id, dbi.name)" id="{{i.id}}" [(ngModel)]="nameDefault" [value]="dbi.name">{{dbi.name}}</mat-option>
                               }
                             </mat-autocomplete>
                           </mat-form-field>
