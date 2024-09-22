@@ -24,11 +24,12 @@
                                    placeholder="Selecciona"
                                    aria-label="Producto"
                                    matInput
+                                   formControlName="Item{{i.id}}"
                                    id="detailInput{{i.id}}"
                                    [matAutocomplete]="auto">
                             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                              @for (dbi of filteredOptions | async; track dbi) {
-                                <mat-option (onSelectionChange)="changeSelection(i.id, dbi.name)" id="{{i.id}}" [(ngModel)]="nameDefault" [value]="dbi.name">{{dbi.name}}</mat-option>
+                              @for (dbi of filteredItems | async; track dbi) {
+                                <mat-option (onSelectionChange)="changeSelection(i.id, dbi.name,$event)" id="{{i.id}}" [value]="dbi.name">{{dbi.name}}</mat-option>
                               }
                             </mat-autocomplete>
                           </mat-form-field>

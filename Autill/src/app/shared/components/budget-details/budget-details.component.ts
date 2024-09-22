@@ -8,6 +8,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {AsyncPipe} from '@angular/common';
 import { map, Observable, startWith } from 'rxjs';
+import { Item } from '../../../core/models/Item';
 
 
 @Component({
@@ -22,8 +23,8 @@ export class BudgetDetailsComponent {
   data = [];
   dbItems:any = [];
   apiService = inject(ApiService);
-  myControl = new FormControl('');
-  filteredOptions!: Observable<any[]>;
+  Item = new FormControl<ItemInit | string>('');
+  filteredItems!: Observable<Item[]>;
   lastOptionIdSelected:number = 0;
   lasItemAdded: any = {};
   detailsForm!: FormGroup;
@@ -31,7 +32,7 @@ export class BudgetDetailsComponent {
 
   initializeForm(){
     this.detailsForm = new FormGroup({
-      detailInput0: new FormControl()
+      Item0: new FormControl()
     })
   }
 
@@ -44,20 +45,29 @@ export class BudgetDetailsComponent {
       this.items = this.data;
     }
 
+    this.apiService.getItems().subscribe((data:any) => {
+      this.dbItems = data;
+
+      this.filteredItems = this.Item.valueChanges.pipe(
+        startWith(''),
+        map(value => {
+          const item = value;
+          return item ? this._filter(item as string) : this.dbItems;
+        }),
+      );
+    })
+
     for (let i = 0; i < this.items.length; i++) {
-      this.nameDefault = this.items[i].name;
-      
-      if(i > 0){
-        this.detailsForm.addControl(`detailInput${i}`, new FormControl());
+      if(i>0){
+        this.detailsForm.addControl(`Item${i}`, new FormControl());
       }
-
-      this.detailsForm.controls[`detailInput${i}`].setValue(this.items[i]);
     }
+  }
 
-    this.filteredOptions = this.detailsForm.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
+  ngAfterViewInit() {
+    for (let i = 0; i < this.items.length; i++) {
+      this.detailsForm.get(`Item${i}`)!.setValue(this.items[i].name);
+    }
   }
 
   onClose(): void {
@@ -80,13 +90,15 @@ export class BudgetDetailsComponent {
     this.items.push({id: id+1, name: '', units: 0, price: 0, totalConcept: 0});
   }
 
-  changeSelection(id: number, name: string){
-    this.lastOptionIdSelected = id;
-    this._filter(name);
+  changeSelection(id: number, name: string, event: any){
+    if (event.isUserInput) {
+      this.lastOptionIdSelected = id;
+      this._filter(name);
+    }
   }
 
   private _filter(value: any): any[] {
-    const filterValue = value.toLowerCase();
+    const filterValue = typeof value === 'string' ? value.toLowerCase() : value.Item.toLowerCase();
 
     let itemSelected = this.dbItems.find((item:any) => item.name === value)!;
 
@@ -98,5 +110,11 @@ export class BudgetDetailsComponent {
     this.lasItemAdded = itemSelected;
 
     return this.dbItems.filter((option:any) => option.name.toLowerCase().includes(filterValue));
+  }
+}
+
+export class ItemInit {
+  constructor(public id: number, public name: string, public price: number) {
+
   }
 }
