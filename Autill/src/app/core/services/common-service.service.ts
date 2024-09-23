@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import jsPDF from 'jspdf';
 import { ApiService } from './api.service';
+import autoTable from 'jspdf-autotable'
 
 @Injectable({
   providedIn: 'root'
@@ -26,22 +27,41 @@ export class CommonService {
   
             doc.setFontSize(28);
             //title
-            doc.text(title + ' - ' + budget.name.split('-').pop(), 10, 10);
+            doc.text(title + ' - ' + budget.name.split('-').pop(), 100, 20);
+
+            doc.addImage(user.logo, 'JPEG', 0, 0, 30, 30);
     
             doc.setFontSize(14);
             //user data
-            doc.text(user.fullName, 10, 20);
-            doc.text(user.email, 10, 30);
-            doc.text(user.cif, 10, 40);
-            doc.text(user.address, 10, 50);
-            doc.text(user.phoneNumber, 10, 60);
+            doc.text(user.fullName, 10, 40);
+            doc.text(user.email, 10, 50);
+            doc.text(user.cif, 10, 60);
+            doc.text(user.address, 10, 70);
+            doc.text(user.phoneNumber, 10, 80);
     
             //client data
-            doc.text(client.name, 120, 20);
-            doc.text(client.email, 120, 30);
-            doc.text(client.cif, 120, 40);
-            doc.text(client.address, 120, 50);
-            doc.text(client.phoneNumber, 120, 60);
+            doc.text(client.name, 120, 40);
+            doc.text(client.email, 120, 50);
+            doc.text(client.cif, 120, 60);
+            doc.text(client.address, 120, 70);
+            doc.text(client.phoneNumber, 120, 80);
+
+            let bodyFormatItems = [];
+
+            const items = JSON.parse(budget.descriptionItems);
+            for (let i = 0; i < items.length; i++) {
+              bodyFormatItems.push([items[i].name, items[i].units, items[i].price, items[i].totalConcept]);
+            }
+
+            autoTable(doc, {
+              margin: { top: 90 },
+              head: [["Concepto","Unidades","Precio/Unidad","Total"]],
+              body: bodyFormatItems,
+            })
+
+            doc.text("Subtotal   " + budget.price, 150, 260);
+            doc.text("IVA 21%   " + Number((budget.price*0.21).toFixed(2)) + "€", 150, 270);
+            doc.text("TOTAL   " + budget.price*1.21 + "€", 150, 290);
     
             doc.save("a4.pdf");
           } 
