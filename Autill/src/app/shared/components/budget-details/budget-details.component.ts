@@ -77,14 +77,24 @@ export class BudgetDetailsComponent {
     this.dialogRef.close({data: this.items});
   }
 
-  addItem(id:number){
+  addItem(id:number,from:string){
     let unitsInput = document.getElementById('units'+id) as HTMLInputElement;
+    let name = this.detailsForm.controls['Item'+id].value;
+    let price = document.getElementById('priceTD'+id) as HTMLInputElement;
 
-    if(this.lasItemAdded != undefined){
+    let units = parseFloat(unitsInput.value);
+
+    this.items[id].units = units;
+    if(from === 'newItem'){
       this.items[id].name = this.lasItemAdded.name;
-      this.items[id].units = parseFloat(unitsInput.value);
       this.items[id].price = parseFloat(this.lasItemAdded.priceU);
       this.items[id].totalConcept = parseFloat(unitsInput.value) * parseFloat(this.lasItemAdded.priceU);
+
+      this.items.push({id: id+1, name: '', units: 0, price: 0, totalConcept: 0});
+    }else{
+      this.items[id].name = name;
+      this.items[id].price = parseFloat(price.value);
+      this.items[id].totalConcept = units * this.items[id].price;
     }
 
     this.detailsForm.addControl(`Item${id+1}`, new FormControl());
@@ -97,7 +107,6 @@ export class BudgetDetailsComponent {
       }),
     );
 
-    this.items.push({id: id+1, name: '', units: 0, price: 0, totalConcept: 0});
   }
 
   changeSelection(id: number, name: string, event: any){
@@ -120,6 +129,20 @@ export class BudgetDetailsComponent {
     this.lasItemAdded = itemSelected;
 
     return this.dbItems.filter((option:any) => option.name.toLowerCase().includes(filterValue));
+  }
+
+  addItems(){
+    if(this.items.length === 1){
+      this.addItem(0,'finishItems');
+    }
+    this.onClose();
+  }
+
+  unitsChange(idItem: number, event: any){
+    let refreshUnits = (event.target as HTMLInputElement).value
+
+    this.items[idItem].units = parseFloat(refreshUnits);
+    this.items[idItem].totalConcept = this.items[idItem].units * this.items[idItem].price;
   }
 }
 
