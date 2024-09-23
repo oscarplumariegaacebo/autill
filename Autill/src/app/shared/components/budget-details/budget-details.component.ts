@@ -48,11 +48,11 @@ export class BudgetDetailsComponent {
     this.apiService.getItems().subscribe((data:any) => {
       this.dbItems = data;
 
-      this.filteredItems = this.Item.valueChanges.pipe(
+      this.filteredItems = this.detailsForm.controls['Item0'].valueChanges.pipe(
         startWith(''),
         map(value => {
           const item = value;
-          return item ? this._filter(item as string) : this.dbItems;
+          return item ? this._filter(item as string) : this.dbItems || '';
         }),
       );
     })
@@ -86,6 +86,16 @@ export class BudgetDetailsComponent {
       this.items[id].price = parseFloat(this.lasItemAdded.priceU);
       this.items[id].totalConcept = parseFloat(unitsInput.value) * parseFloat(this.lasItemAdded.priceU);
     }
+
+    this.detailsForm.addControl(`Item${id+1}`, new FormControl());
+
+    this.filteredItems = this.detailsForm.controls[`Item${id+1}`].valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const item = value;
+        return item ? this._filter(item as string) : this.dbItems || '';
+      }),
+    );
 
     this.items.push({id: id+1, name: '', units: 0, price: 0, totalConcept: 0});
   }

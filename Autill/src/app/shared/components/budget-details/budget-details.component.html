@@ -28,6 +28,7 @@
                                    id="detailInput{{i.id}}"
                                    [matAutocomplete]="auto">
                             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                <mat-option value=""></mat-option>
                               @for (dbi of filteredItems | async; track dbi) {
                                 <mat-option (onSelectionChange)="changeSelection(i.id, dbi.name,$event)" id="{{i.id}}" [value]="dbi.name">{{dbi.name}}</mat-option>
                               }

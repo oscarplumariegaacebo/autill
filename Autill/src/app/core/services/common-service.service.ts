@@ -26,6 +26,7 @@ export class CommonService {
             const doc = new jsPDF();
   
             doc.setFontSize(28);
+            doc.setFont('courier');
             //title
             doc.text(title + ' - ' + budget.name.split('-').pop(), 100, 20);
 
@@ -61,9 +62,11 @@ export class CommonService {
 
             doc.text("Subtotal   " + budget.price, 150, 260);
             doc.text("IVA 21%   " + Number((budget.price*0.21).toFixed(2)) + "€", 150, 270);
+
+            doc.setFont('courier','bold');
             doc.text("TOTAL   " + budget.price*1.21 + "€", 150, 290);
     
-            doc.save("a4.pdf");
+            doc.save(title + '-' + budget.name.split('-').pop()+".pdf");
           } 
         })
       });
