@@ -22,7 +22,6 @@ export class BillsComponent {
   ngOnInit() {
     this.apiService.getBills().subscribe({
       next: (data:any) => {
-        console.log(data);
         for (let i = 0; i < data.length; i++) {
           this.apiService.getClients().subscribe((clients:any) =>{
             for (let x = 0; x < clients.length; x++) {

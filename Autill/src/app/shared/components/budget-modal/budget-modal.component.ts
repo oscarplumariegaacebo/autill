@@ -1,18 +1,28 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from '../../../core/services/api.service';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerIntl, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { provideNativeDateAdapter } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 import { BudgetDetailsComponent } from '../budget-details/budget-details.component';
 import { Router } from '@angular/router';
+import moment from 'moment';
 
 @Component({
   selector: 'app-budget-modal',
   standalone: true,
-  providers: [provideNativeDateAdapter()],
+  providers: [
+        // The locale would typically be provided on the root module of your application. We do it at
+    // the component level here, due to limitations of our example generation script.
+    {provide: MAT_DATE_LOCALE, useValue: { useUtc: true }},
+
+    // Moment can be provided globally to your app by adding `provideMomentDateAdapter`
+    // to your app config. We provide it at the component level here, due to limitations
+    // of our example generation script.
+    provideNativeDateAdapter(),
+  ],
   imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule],
   templateUrl: './budget-modal.component.html',
   styleUrl: './budget-modal.component.css'
@@ -28,6 +38,16 @@ export class BudgetModalComponent {
   modalItemsArray = [];
   action:string = '';
   dbItems = [];
+
+  private readonly _adapter = inject<DateAdapter<unknown, unknown>>(DateAdapter);
+  private readonly _intl = inject(MatDatepickerIntl);
+  private readonly _locale = signal(inject<unknown>(MAT_DATE_LOCALE));
+  readonly dateFormatString = computed(() => {
+    if (this._locale() === 'es-Es') {
+      return 'DD/MM/YYYY';
+    }
+    return '';
+  });
 
   initializeForm() {
     this.budgetForm = new FormGroup({
@@ -100,6 +120,14 @@ export class BudgetModalComponent {
       this.budgetForm.removeControl('id');
       this.apiService.getUserByEmail(localStorage.getItem('email') || "[]").subscribe((user: any) => {
         this.budgetForm.controls['idBusiness'].setValue(user.id);
+
+
+        let date = this.budgetForm.controls['date'].value;
+        let formatDate = moment(date).utc().format("DD/MM/YYYY");
+        let day = parseInt(formatDate.slice(0,2)) + 1;
+        formatDate = day.toString() + formatDate.slice(2,formatDate.length);
+
+        this.budgetForm.controls['date'].setValue(formatDate);
 
         this.apiService.addBudget(this.budgetForm.value).subscribe({
           next: () => {
