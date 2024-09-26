@@ -10,5 +10,6 @@
         public string Date { get; set; }
         public string DescriptionItems { get; set; }
         public double Price { get; set; }
+        public Boolean CloseIt { get; set; }
     }
 }

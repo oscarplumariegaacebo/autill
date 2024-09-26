@@ -2,6 +2,7 @@
 using Autill.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using System.Text.Json;
 
 namespace Autill.Controllers
@@ -76,6 +77,7 @@ namespace Autill.Controllers
             {
                 return NotFound();
             }
+
             return budget;
         }
 
@@ -124,6 +126,21 @@ namespace Autill.Controllers
             _budgetContext.Budgets.Remove(budget);
             await _budgetContext.SaveChangesAsync();
             return NoContent();
+        }
+
+        [HttpGet("closeIt/{id}")]
+        public async Task<ActionResult<Budget>> CloseBudget(int id)
+        {
+            var budget = await _budgetContext.Budgets.FindAsync(id);
+            if (budget == null)
+            {
+                return NotFound();
+            }
+
+            budget.CloseIt = true;
+            await _budgetContext.SaveChangesAsync();
+
+            return budget;
         }
 
         private bool BudgetExists(int id)
