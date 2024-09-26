@@ -22,7 +22,8 @@ namespace Autill.Migrations
                     ClientName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DescriptionItems = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false)
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    CloseIt = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

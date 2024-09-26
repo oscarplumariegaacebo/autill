@@ -34,6 +34,9 @@ namespace Autill.Controllers
 
             if (budgetToClone != null)
             {
+                budgetToClone.CloseIt = true;
+                await _budgetContext.SaveChangesAsync();
+
                 var bill = new Bill();
                 bill.IdBusiness = budgetToClone.IdBusiness;
                 bill.Name = budgetToClone.Name;

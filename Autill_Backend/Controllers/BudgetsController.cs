@@ -110,6 +110,7 @@ namespace Autill.Controllers
         [HttpPost]
         public async Task<ActionResult<Budget>> PostBudget(Budget budget)
         {
+            budget.CloseIt = false;
             _budgetContext.Budgets.Add(budget);
             await _budgetContext.SaveChangesAsync();
             return CreatedAtAction(nameof(GetBudget), new { id = budget.Id }, budget);
@@ -126,21 +127,6 @@ namespace Autill.Controllers
             _budgetContext.Budgets.Remove(budget);
             await _budgetContext.SaveChangesAsync();
             return NoContent();
-        }
-
-        [HttpGet("closeIt/{id}")]
-        public async Task<ActionResult<Budget>> CloseBudget(int id)
-        {
-            var budget = await _budgetContext.Budgets.FindAsync(id);
-            if (budget == null)
-            {
-                return NotFound();
-            }
-
-            budget.CloseIt = true;
-            await _budgetContext.SaveChangesAsync();
-
-            return budget;
         }
 
         private bool BudgetExists(int id)

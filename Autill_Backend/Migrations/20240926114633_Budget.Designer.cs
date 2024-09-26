@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Autill.Migrations
 {
     [DbContext(typeof(BudgetContext))]
-    [Migration("20240916112242_Budget")]
+    [Migration("20240926114633_Budget")]
     partial class Budget
     {
         /// <inheritdoc />
@@ -38,6 +38,9 @@ namespace Autill.Migrations
                     b.Property<string>("ClientName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("CloseIt")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Date")
                         .IsRequired()
