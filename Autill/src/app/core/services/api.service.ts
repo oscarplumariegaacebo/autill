@@ -101,4 +101,7 @@ export class ApiService {
   addItem(item:Item){
     return this.http.post<Item>(this.api+'api/Item', item)
   }
+  closeBudget(id:number){
+    return this.http.get(this.api+'api/Budgets/closeIt/'+id);
+  }
 }
