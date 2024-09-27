@@ -132,9 +132,9 @@ export class BudgetDetailsComponent {
   }
 
   addItems(){
-    if(this.items.length === 1){
-      this.addItem(0,'finishItems');
-    }
+    this.addItem(this.items.length-1, 'newItem');
+    this.items.pop();
+
     this.onClose();
   }
 

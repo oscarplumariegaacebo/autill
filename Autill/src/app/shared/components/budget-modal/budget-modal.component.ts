@@ -58,7 +58,8 @@ export class BudgetModalComponent {
       descriptionItems: new FormControl(),
       clientId: new FormControl(),
       clientName: new FormControl(),
-      date: new FormControl()
+      date: new FormControl(),
+      closeIt: new FormControl()
     })
   }
 
