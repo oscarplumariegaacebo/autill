@@ -155,16 +155,13 @@ export class BudgetModalComponent {
 
   generateBill(){
     this.loading = true;
-    //TODO - fusion closeBudget and clone
-    this.apiService.closeBudget(this.id).subscribe(() => {
-      this.apiService.cloneRegister(this.id).subscribe({
+
+    this.apiService.cloneRegister(this.id).subscribe({
         complete: () => {
           this.loading = false;
           this.onClose();
           this.router.navigate(['/bills']);
         }
     })
-    })
-
   }
 }
