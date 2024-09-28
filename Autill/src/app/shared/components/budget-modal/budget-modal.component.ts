@@ -48,9 +48,6 @@ export class BudgetModalComponent {
   modalItemsArray = [];
   action:string = '';
   dbItems = [];
-  date = new FormControl(new Date());
-
-
 
   initializeForm() {
     this.budgetForm = new FormGroup({
@@ -80,9 +77,12 @@ export class BudgetModalComponent {
     this.apiService.nextBudgetName().subscribe((name: any) => {
       if (this.id > 0) {
         this.apiService.getBudgetById(this.id).subscribe((budget: any) => {
+          var dateParts = budget.date.split("/");
+          var dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
+          budget.date = dateObject;
+
           this.budgetForm.setValue(budget);
-          console.log(this.budgetForm.controls);
-          this.budgetForm.get('date')!.setValue(budget.date);
+
           this.modalItemsArray = JSON.parse(budget.descriptionItems);
         })
       } else {
@@ -116,6 +116,15 @@ export class BudgetModalComponent {
 
   actionBudget() {
     this.loading = true;
+
+    let date = this.budgetForm.controls['date'].value;
+    let formatDate = moment(date).utc().format("DD/MM/YYYY");
+    let day = parseInt(formatDate.slice(0,2)) + 1;
+    formatDate = day.toString() + formatDate.slice(2,formatDate.length);
+
+    this.budgetForm.controls['date'].setValue(formatDate);
+
+
     if (this.id == 0) {
       for (let i = 0; i < this.clients.length; i++) {
         if(this.clients[i].id == this.budgetForm.controls['clientId'].value){
@@ -126,14 +135,6 @@ export class BudgetModalComponent {
       this.budgetForm.removeControl('id');
       this.apiService.getUserByEmail(localStorage.getItem('email') || "[]").subscribe((user: any) => {
         this.budgetForm.controls['idBusiness'].setValue(user.id);
-
-
-        let date = this.budgetForm.controls['date'].value;
-        let formatDate = moment(date).utc().format("DD/MM/YYYY");
-        let day = parseInt(formatDate.slice(0,2)) + 1;
-        formatDate = day.toString() + formatDate.slice(2,formatDate.length);
-
-        this.budgetForm.controls['date'].setValue(formatDate);
 
         this.apiService.addBudget(this.budgetForm.value).subscribe({
           next: () => {
