@@ -50,12 +50,6 @@ export class ApiService {
   editUser(user: any){
     return this.http.put<UserEdit>(this.api+'api/Users', user);
   }
-  getBudgets(): Observable<BudgetResults>{
-    return this.http.get<BudgetResults>(this.api+'api/Budgets');
-  }
-  nextBudgetName(){
-    return this.http.get(this.api+'api/Budgets/nextName');
-  }
   getClients(){
     return this.http.get(this.api+'api/Clients');
   }
@@ -71,23 +65,11 @@ export class ApiService {
   editClient(id:number, client:any){
     return this.http.put(this.api+'api/Clients/'+id, client)
   }
-  editBudget(id:number, budget:Budget){
-    return this.http.put(this.api+'api/Budgets/'+id, budget)
-  }
-  addBudget(budget:Budget){
-    return this.http.post<Budget>(this.api+'api/Budgets', budget)
-  }
-  deleteBudget(id: number){
-    return this.http.delete(this.api+'api/Budgets/'+id);
-  }
   deleteBill(id: number){
     return this.http.delete(this.api+'api/Bills/'+id);
   }
   deleteProduct(id: number){
     return this.http.delete(this.api+'api/Item/'+id);
-  }
-  getBudgetById(id: number){
-    return this.http.get(this.api+'api/Budgets/'+id);
   }
   cloneRegister(id:number){
     return this.http.post(this.api+'api/Bills/clone',id);

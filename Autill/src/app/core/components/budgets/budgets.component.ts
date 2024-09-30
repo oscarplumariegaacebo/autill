@@ -8,6 +8,7 @@ import { ErrorsComponent } from "../../../shared/components/errors/errors.compon
 import { DeleteItemModalComponent } from '../../../shared/components/delete-item-modal/delete-item-modal.component';
 import { CommonService } from '../../services/common-service.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { BudgetService } from '../../services/budget.service';
 
 @Component({
   selector: 'app-budgets',
@@ -20,12 +21,13 @@ export class BudgetsComponent {
   budgets: any = [];
   showModal = false;
   apiService = inject(ApiService);
+  budgetService = inject(BudgetService);
   errorMessage: string = '';
 
   constructor(private dialog: MatDialog, public commonService: CommonService) { }
 
   ngOnInit() {
-    this.apiService.getBudgets().subscribe({
+    this.budgetService.getBudgets().subscribe({
       next: (data: any) => {
         this.budgets = data;
       },
@@ -62,7 +64,7 @@ export class BudgetsComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'confirm') {
-        this.apiService.deleteBudget(id).subscribe({
+        this.budgetService.deleteBudget(id).subscribe({
         })
       }
     })

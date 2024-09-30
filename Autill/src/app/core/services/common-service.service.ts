@@ -2,12 +2,14 @@ import { inject, Injectable } from '@angular/core';
 import jsPDF from 'jspdf';
 import { ApiService } from './api.service';
 import autoTable from 'jspdf-autotable'
+import { BudgetService } from './budget.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
   apiService = inject(ApiService);
+  budgetService = inject(BudgetService);
 
   constructor() { }
 
@@ -19,7 +21,7 @@ export class CommonService {
       title = 'Presupuesto'
     }
 
-    this.apiService.getBudgetById(id).subscribe((budget:any) => {
+    this.budgetService.getBudgetById(id).subscribe((budget:any) => {
       this.apiService.getUserById(budget.idBusiness).subscribe((user: any) => {
         this.apiService.getClientById(budget.clientId).subscribe({
           next: (client:any) =>{
