@@ -83,7 +83,7 @@ export class BudgetModalComponent {
         startWith(''),
         map(value => {
           const item = value;
-          return item ? this._filter(item as string) : this.clients || '';
+          return item ? this._filter(item as string) : clients || '';
         }),
       );
     })
@@ -190,9 +190,14 @@ export class BudgetModalComponent {
   }
 
   private _filter(value: any): any[] {
-    const filterValue = typeof value === 'string' ? value.toLowerCase() : value.Client.toLowerCase();
-
-    this.clientSelected = this.clients.find((item:any) => item.name === value)!;
+    let filterValue = '';
+    if(typeof value === 'number'){
+      this.clientSelected = this.clients.find((item:any) => item.id === value)!;
+      filterValue = this.clientSelected.name.toLowerCase();
+    }else{
+      filterValue = typeof value === 'string' ? value.toLowerCase() : value.Client.toLowerCase();
+      this.clientSelected = this.clients.find((item:any) => item.name === value)!;
+    }
 
     return this.clients.filter((option:any) => option.name.toLowerCase().includes(filterValue));
   }
