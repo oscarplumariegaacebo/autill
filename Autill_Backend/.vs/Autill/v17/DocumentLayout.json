@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|solutionrelative:controllers\\budgetscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|d:\\projects\\autill\\autill_backend\\controllers\\billscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|solutionrelative:controllers\\billscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|d:\\projects\\autill\\autill_backend\\models\\budget.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|solutionrelative:models\\budget.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -21,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|d:\\projects\\autill\\autill_backend\\controllers\\itemcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|solutionrelative:controllers\\itemcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|d:\\projects\\autill\\autill_backend\\controllers\\billscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|solutionrelative:controllers\\billscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{60A87C01-761D-477D-8922-D2D7A763EBFD}|Autill.csproj|d:\\projects\\autill\\autill_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -50,7 +50,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "UsersController.cs",
               "DocumentMoniker": "D:\\projects\\Autill\\Autill_Backend\\Controllers\\UsersController.cs",
               "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
@@ -58,12 +58,11 @@
               "RelativeToolTip": "Controllers\\UsersController.cs",
               "ViewState": "AQIAAB4AAAAAAAAAAAAAACwAAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-26T10:09:33.666Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-26T10:09:33.666Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Budget.cs",
               "DocumentMoniker": "D:\\projects\\Autill\\Autill_Backend\\Models\\Budget.cs",
               "RelativeDocumentMoniker": "Models\\Budget.cs",
@@ -71,12 +70,11 @@
               "RelativeToolTip": "Models\\Budget.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-26T09:57:33.427Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-26T09:57:33.427Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "ClientsController.cs",
               "DocumentMoniker": "D:\\projects\\Autill\\Autill_Backend\\Controllers\\ClientsController.cs",
               "RelativeDocumentMoniker": "Controllers\\ClientsController.cs",
@@ -84,8 +82,7 @@
               "RelativeToolTip": "Controllers\\ClientsController.cs",
               "ViewState": "AQIAACcAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T21:39:20Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T21:39:20Z"
             },
             {
               "$type": "Document",
@@ -113,7 +110,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "ItemController.cs",
               "DocumentMoniker": "D:\\projects\\Autill\\Autill_Backend\\Controllers\\ItemController.cs",
               "RelativeDocumentMoniker": "Controllers\\ItemController.cs",
@@ -121,21 +118,19 @@
               "RelativeToolTip": "Controllers\\ItemController.cs",
               "ViewState": "AQIAAAkAAAAAAAAAAAAAADUAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-16T20:43:07.932Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-16T20:43:07.932Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "BillsController.cs",
               "DocumentMoniker": "D:\\projects\\Autill\\Autill_Backend\\Controllers\\BillsController.cs",
               "RelativeDocumentMoniker": "Controllers\\BillsController.cs",
               "ToolTip": "D:\\projects\\Autill\\Autill_Backend\\Controllers\\BillsController.cs",
               "RelativeToolTip": "Controllers\\BillsController.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAADYAAAAAAAAA",
+              "ViewState": "AQIAABgAAAAAAAAAAAAAACUAAAA4AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-06T12:50:01.731Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-06T12:50:01.731Z"
             },
             {
               "$type": "Document",
@@ -145,7 +140,7 @@
               "RelativeDocumentMoniker": "Controllers\\BudgetsController.cs",
               "ToolTip": "D:\\projects\\Autill\\Autill_Backend\\Controllers\\BudgetsController.cs",
               "RelativeToolTip": "Controllers\\BudgetsController.cs",
-              "ViewState": "AQIAAGMAAAAAAAAAAAAAAHAAAAAjAAAA",
+              "ViewState": "AQIAAGUAAAAAAAAAAAAAAIcAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-03T21:08:55.909Z",
               "EditorCaption": ""
