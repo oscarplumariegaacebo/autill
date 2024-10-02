@@ -21,12 +21,26 @@ export class UserInfoComponent {
 
   initializeForm(){
     this.userInfo = new FormGroup({
+      userName: new FormControl(),
       fullName: new FormControl(),
-      email: new FormControl(),
+      email: new FormControl('',[Validators.required, Validators.email]),
       address: new FormControl(),
-      phoneNumber: new FormControl(),
-      cif: new FormControl(),
-      id: new FormControl()
+      phoneNumber: new FormControl('',[Validators.pattern(/^[+]?(?:\(\d+(?:\.\d+)?\)|\d+(?:\.\d+)?)(?:[ -]?(?:\(\d+(?:\.\d+)?\)|\d+(?:\.\d+)?))*(?:[ ]?(?:x|ext)\.?[ ]?\d{1,5})?$/), Validators.required, Validators.maxLength(9)]),
+      logo: new FormControl(),
+      cif: new FormControl('',[Validators.pattern(/^[A-Va-w][0-9]{8}[A-Z]$|^[0-9]{7}[0-9A-Ja]$/), Validators.required, Validators.maxLength(9)]),
+      id: new FormControl(),
+      //TO-DO ZIP
+      normalizedUserName: new FormControl(),
+      normalizedEmail: new FormControl(),
+      emailConfirmed: new FormControl(),
+      passwordHash: new FormControl(),
+      securityStamp: new FormControl(),
+      concurrencyStamp: new FormControl(),
+      phoneNumberConfirmed: new FormControl(),
+      twoFactorEnabled: new FormControl(),
+      lockoutEnd: new FormControl(),
+      lockoutEnabled: new FormControl(),
+      accessFailedCount: new FormControl()
     })
   }
 
@@ -37,29 +51,24 @@ export class UserInfoComponent {
   ngOnInit() {
     this.emailLogin = localStorage.getItem('email') || "[]";
     this.service.getUserByEmail(this.emailLogin).subscribe((data: any) => {
+      this.userInfo.setValue(data);
       this.logoPath = data.logo;
-        this.userInfo = this.formBuilder.group({
-          fullName: [data.fullName ? data.fullName : '', [Validators.required]],
-          email: [data.email ? data.email : ''],
-          address: [data.address? data.address : '', [Validators.required]],
-          cif: [data.cif? data.cif : '', [Validators.required]],
-          phoneNumber: [data.phoneNumber? data.phoneNumber : '', [Validators.required]],
-          id: [data.id? data.id : '']
-        });
     })
   }
 
   updateUser(){
-    this.service.editUser(this.userInfo.value).subscribe({
-      next: () => {
-        this.loading = true;
-      },
-      complete: () => {
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000)
-      }
-    })
+    if(this.userInfo.valid){
+      this.service.editUser(this.userInfo.value).subscribe({
+        next: () => {
+          this.loading = true;
+        },
+        complete: () => {
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000)
+        }
+      })
+    }
   }
 
 }

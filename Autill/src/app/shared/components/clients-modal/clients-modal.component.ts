@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ApiService } from '../../../core/services/api.service';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SpinnerLoadingComponent } from '../spinner-loading/spinner-loading.component';
 
@@ -25,11 +25,11 @@ export class ClientsModalComponent {
       address: new FormControl(),
       region: new FormControl(),
       city: new FormControl(),
-      postalCode: new FormControl(),
-      email: new FormControl(),
+      postalCode: new FormControl('',[Validators.pattern(/^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$/), Validators.required, Validators.maxLength(5)]),
+      email: new FormControl('',[Validators.required, Validators.email]),
       country: new FormControl(),
-      cif: new FormControl(),
-      phoneNumber: new FormControl()
+      cif: new FormControl('',[Validators.pattern(/^[A-Va-w][0-9]{8}[A-Z]$|^[0-9]{7}[0-9A-Ja]$/), Validators.required, Validators.maxLength(9)]),
+      phoneNumber: new FormControl('',[Validators.pattern(/^[+]?(?:\(\d+(?:\.\d+)?\)|\d+(?:\.\d+)?)(?:[ -]?(?:\(\d+(?:\.\d+)?\)|\d+(?:\.\d+)?))*(?:[ ]?(?:x|ext)\.?[ ]?\d{1,5})?$/), Validators.required, Validators.maxLength(9)])
     })
   }
 
