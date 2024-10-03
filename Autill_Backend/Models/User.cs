@@ -8,6 +8,6 @@ namespace Autill.Models
         public string? FullName {  get; set; }
         public string? Cif {  get; set; }
         public string? Logo { get; set; }
-        public int ZIP { get; set; }
+        public int? PostalCode { get; set; }
     }
 }

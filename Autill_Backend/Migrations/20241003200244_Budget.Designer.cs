@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Autill.Migrations
 {
     [DbContext(typeof(BudgetContext))]
-    [Migration("20240926114633_Budget")]
+    [Migration("20241003200244_Budget")]
     partial class Budget
     {
         /// <inheritdoc />
