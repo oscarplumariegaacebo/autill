@@ -22,14 +22,14 @@ export class UserInfoComponent {
   initializeForm(){
     this.userInfo = new FormGroup({
       userName: new FormControl(),
-      fullName: new FormControl(),
+      fullName: new FormControl('',[Validators.pattern(/^[^\d]+$/), Validators.required]),
       email: new FormControl('',[Validators.required, Validators.email]),
       address: new FormControl(),
       phoneNumber: new FormControl('',[Validators.pattern(/^[+]?(?:\(\d+(?:\.\d+)?\)|\d+(?:\.\d+)?)(?:[ -]?(?:\(\d+(?:\.\d+)?\)|\d+(?:\.\d+)?))*(?:[ ]?(?:x|ext)\.?[ ]?\d{1,5})?$/), Validators.required, Validators.maxLength(9)]),
       logo: new FormControl(),
       cif: new FormControl('',[Validators.pattern(/^[A-Va-w][0-9]{8}[A-Z]$|^[0-9]{7}[0-9A-Ja]$/), Validators.required, Validators.maxLength(9)]),
       id: new FormControl(),
-      //TO-DO ZIP
+      postalCode: new FormControl(),
       normalizedUserName: new FormControl(),
       normalizedEmail: new FormControl(),
       emailConfirmed: new FormControl(),

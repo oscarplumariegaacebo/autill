@@ -30,10 +30,15 @@
                   </div>
                 </div>
 
-                <div>
-                    <label class="text-gray-800 text-sm mb-2 block">CIF</label>
-                    <div class="relative flex items-center">
+                <div class="grid md:grid-cols-2 md:gap-6">
+                    <div class="relative z-0 w-full mb-5 group">
+                      <label class="text-gray-800 text-sm mb-2">CIF</label>
                       <input formControlName="cif" name="cif" type="text" required class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600" placeholder="Enter CIF" />
+                    </div>
+                    
+                    <div class="relative z-0 w-full mb-5 group">
+                      <label class="text-gray-800 text-sm mb-2">Postal Code</label>
+                      <input formControlName="postalCode" name="postalCode" type="text" required class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600" placeholder="Enter Postal Code" />
                     </div>
                 </div>
 
