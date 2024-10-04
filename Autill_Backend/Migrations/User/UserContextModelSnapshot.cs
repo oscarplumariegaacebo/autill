@@ -33,9 +33,6 @@ namespace Autill.Migrations.User
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Cif")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -57,6 +54,9 @@ namespace Autill.Migrations.User
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nif")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")

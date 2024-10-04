@@ -64,7 +64,7 @@ namespace Autill.Controllers
            .ExecuteUpdate(setter => setter
            .SetProperty(x => x.FullName, user.FullName)
            .SetProperty(x => x.Address, user.Address)
-           .SetProperty(x => x.Cif, user.Cif)
+           .SetProperty(x => x.Nif, user.Nif)
            .SetProperty(x => x.PhoneNumber, user.PhoneNumber)
            ) > 0;
         }
