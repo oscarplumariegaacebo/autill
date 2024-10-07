@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Autill.Migrations.User
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20241004122602_User")]
+    [Migration("20241007160326_User")]
     partial class User
     {
         /// <inheritdoc />
@@ -38,6 +38,9 @@ namespace Autill.Migrations.User
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -81,6 +84,9 @@ namespace Autill.Migrations.User
 
                     b.Property<int?>("PostalCode")
                         .HasColumnType("int");
+
+                    b.Property<string>("Region")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");

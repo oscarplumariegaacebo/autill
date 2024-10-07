@@ -66,6 +66,9 @@ namespace Autill.Controllers
            .SetProperty(x => x.Address, user.Address)
            .SetProperty(x => x.Nif, user.Nif)
            .SetProperty(x => x.PhoneNumber, user.PhoneNumber)
+           .SetProperty(x => x.PostalCode, user.PostalCode)
+           .SetProperty(x => x.Region, user.Region)
+           .SetProperty(x => x.Country, user.Country)
            ) > 0;
         }
     }
