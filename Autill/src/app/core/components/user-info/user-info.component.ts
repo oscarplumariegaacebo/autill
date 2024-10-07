@@ -30,6 +30,8 @@ export class UserInfoComponent {
       nif: new FormControl('',[Validators.pattern( /^(\d{8})([A-Z])$/), Validators.required, Validators.maxLength(9)]),
       id: new FormControl(),
       postalCode: new FormControl(),
+      region: new FormControl(),
+      country: new FormControl(),
       normalizedUserName: new FormControl(),
       normalizedEmail: new FormControl(),
       emailConfirmed: new FormControl(),
