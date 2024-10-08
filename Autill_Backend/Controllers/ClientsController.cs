@@ -10,10 +10,12 @@ namespace Autill.Controllers
     public class ClientsController : ControllerBase
     {
         private readonly ClientContext _clientContext;
+        private readonly BudgetContext _budgetContext;
 
-        public ClientsController(ClientContext clientContext)
+        public ClientsController(ClientContext clientContext, BudgetContext budgetContext)
         {
             _clientContext = clientContext;
+            _budgetContext = budgetContext;
         }
 
         [HttpGet]
@@ -44,6 +46,13 @@ namespace Autill.Controllers
             try
             {
                 await _clientContext.SaveChangesAsync();
+                var budgetsWithClient = _budgetContext.Budgets.Where(x => x.ClientId == id);
+                foreach (var budget in budgetsWithClient)
+                {
+                    budget.ClientName = client.Name;
+                }
+                await _budgetContext.SaveChangesAsync();
+
             }
             catch (DbUpdateConcurrencyException)
             {
