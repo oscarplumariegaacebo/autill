@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { ApiService } from '../../../core/services/api.service';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SpinnerLoadingComponent } from '../spinner-loading/spinner-loading.component';
+import { ClientService } from '../../../core/services/client.service';
 
 @Component({
   selector: 'app-clients-modal',
@@ -16,7 +16,7 @@ export class ClientsModalComponent {
   id!: number;
   client: Object = {};
   loading:boolean = false;
-  apiService = inject(ApiService);
+  clientService = inject(ClientService);
 
   initializeForm(){
     this.clientForm = new FormGroup({
@@ -39,7 +39,7 @@ export class ClientsModalComponent {
 
   ngOnInit() {
     if(this.id > 0){
-      this.apiService.getClientById(this.id).subscribe((client:any) =>{
+      this.clientService.getClientById(this.id).subscribe((client:any) =>{
         this.clientForm.setValue(client);
       })
     }
@@ -53,7 +53,7 @@ export class ClientsModalComponent {
     this.loading = true;
     if(this.id == 0){
       this.clientForm.removeControl('id');
-      this.apiService.addClient(this.clientForm.value).subscribe({
+      this.clientService.addClient(this.clientForm.value).subscribe({
         next: () => {
           this.clientForm.addControl('id', new FormControl());
         },
@@ -62,7 +62,7 @@ export class ClientsModalComponent {
         }
       })
     }else{
-      this.apiService.editClient(this.id, this.clientForm.value).subscribe({
+      this.clientService.editClient(this.id, this.clientForm.value).subscribe({
         complete: () => {
           setTimeout(() => {
             window.location.reload();

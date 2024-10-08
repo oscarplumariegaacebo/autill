@@ -4,6 +4,7 @@ import { DeleteItemModalComponent } from '../../../shared/components/delete-item
 import { MatDialog } from '@angular/material/dialog';
 import { ItemModalComponent } from '../../../shared/components/item-modal/item-modal.component';
 import { ErrorsComponent } from '../../../shared/components/errors/errors.component';
+import { ItemService } from '../../services/item.service';
 
 @Component({
   selector: 'app-items',
@@ -15,13 +16,13 @@ import { ErrorsComponent } from '../../../shared/components/errors/errors.compon
 export class ItemsComponent {
   items:any = [];
   showModal = false;
-  apiService = inject(ApiService);
+  itemService = inject(ItemService);
   errorMessage: string = '';
 
   constructor(private dialog: MatDialog){}
 
   ngOnInit() {
-    this.apiService.getItems().subscribe((items:any) => {
+    this.itemService.getItems().subscribe((items:any) => {
       this.items = items;
     })
   }

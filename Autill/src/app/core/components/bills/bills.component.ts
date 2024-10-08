@@ -4,6 +4,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { DeleteItemModalComponent } from '../../../shared/components/delete-item-modal/delete-item-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonService } from '../../services/common-service.service';
+import { BillService } from '../../services/bill.service';
+import { ClientService } from '../../services/client.service';
 
 @Component({
   selector: 'app-bills',
@@ -14,16 +16,17 @@ import { CommonService } from '../../services/common-service.service';
 })
 export class BillsComponent {
   bills: any = [];
-  apiService = inject(ApiService);
+  billService = inject(BillService);
+  clientService = inject(ClientService);
   errorMessage: string = "";
 
   constructor(private dialog: MatDialog, public commonService: CommonService) {}
 
   ngOnInit() {
-    this.apiService.getBills().subscribe({
+    this.billService.getBills().subscribe({
       next: (data:any) => {
         for (let i = 0; i < data.length; i++) {
-          this.apiService.getClients().subscribe((clients:any) =>{
+          this.clientService.getClients().subscribe((clients:any) =>{
             for (let x = 0; x < clients.length; x++) {
               if(clients[x].id === data[i].clientId) {
                 data[i].clientName = clients[x].name;

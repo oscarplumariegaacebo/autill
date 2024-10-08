@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { ApiService } from '../../services/api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatButton } from '@angular/material/button';
 import { DeleteItemModalComponent } from '../../../shared/components/delete-item-modal/delete-item-modal.component';
 import { ClientsModalComponent } from '../../../shared/components/clients-modal/clients-modal.component';
 import { ErrorsComponent } from '../../../shared/components/errors/errors.component';
+import { ClientService } from '../../services/client.service';
 
 @Component({
   selector: 'app-clients',
@@ -17,13 +17,13 @@ import { ErrorsComponent } from '../../../shared/components/errors/errors.compon
 export class ClientsComponent {
   clients:any = [];
   showModal = false;
-  apiService = inject(ApiService);
+  clientService = inject(ClientService);
   errorMessage: string = '';
 
   constructor(private dialog: MatDialog){}
 
   ngOnInit() {
-    this.apiService.getClients().subscribe({
+    this.clientService.getClients().subscribe({
       next: (data) => {
         this.clients = data;
       }, 
@@ -48,7 +48,7 @@ export class ClientsComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result == 'confirm'){
-        this.apiService.deleteClient(id).subscribe({
+        this.clientService.deleteClient(id).subscribe({
         })
       }
     })

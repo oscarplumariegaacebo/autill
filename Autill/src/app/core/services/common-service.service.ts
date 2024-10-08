@@ -3,6 +3,8 @@ import jsPDF from 'jspdf';
 import { ApiService } from './api.service';
 import autoTable from 'jspdf-autotable'
 import { BudgetService } from './budget.service';
+import { ClientService } from './client.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,8 @@ import { BudgetService } from './budget.service';
 export class CommonService {
   apiService = inject(ApiService);
   budgetService = inject(BudgetService);
+  clientService = inject(ClientService);
+  userService = inject(UserService);
 
   constructor() { }
 
@@ -23,8 +27,8 @@ export class CommonService {
     }
 
     this.budgetService.getBudgetById(id).subscribe((budget:any) => {
-      this.apiService.getUserById(budget.idBusiness).subscribe((user: any) => {
-        this.apiService.getClientById(budget.clientId).subscribe({
+      this.userService.getUserById(budget.idBusiness).subscribe((user: any) => {
+        this.clientService.getClientById(budget.clientId).subscribe({
           next: (client:any) =>{
             const doc = new jsPDF();
             console.log(budget);

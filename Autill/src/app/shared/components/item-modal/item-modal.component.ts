@@ -3,6 +3,8 @@ import { ApiService } from '../../../core/services/api.service';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SpinnerLoadingComponent } from '../spinner-loading/spinner-loading.component';
+import { ClientService } from '../../../core/services/client.service';
+import { ItemService } from '../../../core/services/item.service';
 
 @Component({
   selector: 'app-item-modal',
@@ -17,6 +19,8 @@ export class ItemModalComponent {
   client: Object = {};
   loading:boolean = false;
   apiService = inject(ApiService);
+  clientService = inject(ClientService);
+  itemService = inject(ItemService);
 
   initializeForm(){
     this.itemForm = new FormGroup({
@@ -42,7 +46,7 @@ export class ItemModalComponent {
     this.loading = true;
     if(this.id == 0){
       this.itemForm.removeControl('id');
-      this.apiService.addItem(this.itemForm.value).subscribe({
+      this.itemService.addItem(this.itemForm.value).subscribe({
         next: () => {
           this.itemForm.addControl('id', new FormControl());
         },
@@ -51,7 +55,7 @@ export class ItemModalComponent {
         }
       })
     }else{
-      this.apiService.editClient(this.id, this.itemForm.value).subscribe({
+      this.clientService.editClient(this.id, this.itemForm.value).subscribe({
         complete: () => {
           setTimeout(() => {
             window.location.reload();

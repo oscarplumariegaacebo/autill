@@ -15,6 +15,10 @@ import { BudgetService } from '../../../core/services/budget.service';
 import { map, Observable, startWith } from 'rxjs';
 import { Client } from '../../../core/models/Client';
 import {AsyncPipe} from '@angular/common';
+import { ClientService } from '../../../core/services/client.service';
+import { BillService } from '../../../core/services/bill.service';
+import { ItemService } from '../../../core/services/item.service';
+import { UserService } from '../../../core/services/user.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -49,6 +53,10 @@ export class BudgetModalComponent {
   clients: any = [];
   apiService = inject(ApiService);
   budgetService = inject(BudgetService);
+  billService = inject(BillService);
+  clientService = inject(ClientService);
+  itemService = inject(ItemService);
+  userService = inject(UserService);
   id!: number;
   nextName!: string;
   modalItemsArray = [];
@@ -76,7 +84,7 @@ export class BudgetModalComponent {
   }
 
   ngOnInit() {
-    this.apiService.getClients().subscribe((clients: any) => {
+    this.clientService.getClients().subscribe((clients: any) => {
       this.clients = clients;
 
       this.filteredClients = this.budgetForm.controls['clientId'].valueChanges.pipe(
@@ -87,7 +95,7 @@ export class BudgetModalComponent {
         }),
       );
     })
-    this.apiService.getItems().subscribe((data:any) => {
+    this.itemService.getItems().subscribe((data:any) => {
       this.dbItems = data;
     })
     this.budgetService.nextBudgetName().subscribe((name: any) => {
@@ -143,7 +151,7 @@ export class BudgetModalComponent {
 
     if (this.id == 0) {
       this.budgetForm.removeControl('id');
-      this.apiService.getUserByEmail(localStorage.getItem('email') || "[]").subscribe((user: any) => {
+      this.userService.getUserByEmail(localStorage.getItem('email') || "[]").subscribe((user: any) => {
         this.budgetForm.controls['idBusiness'].setValue(user.id);
         this.budgetForm.controls['clientId'].setValue(this.clientSelected.id);
         this.budgetForm.controls['clientName'].setValue(this.clientSelected.name);
@@ -180,7 +188,7 @@ export class BudgetModalComponent {
   generateBill(){
     this.loading = true;
 
-    this.apiService.cloneRegister(this.id).subscribe({
+    this.billService.cloneRegister(this.id).subscribe({
         complete: () => {
           this.loading = false;
           this.onClose();

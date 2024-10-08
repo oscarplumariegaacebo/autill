@@ -9,6 +9,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {AsyncPipe} from '@angular/common';
 import { map, Observable, startWith } from 'rxjs';
 import { Item } from '../../../core/models/Item';
+import { ItemService } from '../../../core/services/item.service';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class BudgetDetailsComponent {
   data = [];
   dbItems:any = [];
   apiService = inject(ApiService);
+  itemService = inject(ItemService);
   Item = new FormControl<ItemInit | string>('');
   filteredItems!: Observable<Item[]>;
   lastOptionIdSelected:number = 0;
@@ -45,7 +47,7 @@ export class BudgetDetailsComponent {
       this.items = this.data;
     }
 
-    this.apiService.getItems().subscribe((data:any) => {
+    this.itemService.getItems().subscribe((data:any) => {
       this.dbItems = data;
 
       this.filteredItems = this.detailsForm.controls['Item0'].valueChanges.pipe(

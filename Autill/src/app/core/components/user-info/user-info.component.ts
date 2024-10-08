@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { User } from '../../models/User';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SpinnerLoadingComponent } from '../../../shared/components/spinner-loading/spinner-loading.component';
 import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-info',
@@ -18,6 +19,7 @@ export class UserInfoComponent {
   logoPath!: string
   loading: boolean = false;
   emailLogin: string = '';
+  userService = inject(UserService);
 
   initializeForm(){
     this.userInfo = new FormGroup({
@@ -46,13 +48,13 @@ export class UserInfoComponent {
     })
   }
 
-  constructor (private service: ApiService, private formBuilder: FormBuilder) {
+  constructor (private formBuilder: FormBuilder) {
     this.initializeForm();
   }
 
   ngOnInit() {
     this.emailLogin = localStorage.getItem('email') || "[]";
-    this.service.getUserByEmail(this.emailLogin).subscribe((data: any) => {
+    this.userService.getUserByEmail(this.emailLogin).subscribe((data: any) => {
       this.userInfo.setValue(data);
       this.logoPath = data.logo;
     })
@@ -60,7 +62,7 @@ export class UserInfoComponent {
 
   updateUser(){
     if(this.userInfo.valid){
-      this.service.editUser(this.userInfo.value).subscribe({
+      this.userService.editUser(this.userInfo.value).subscribe({
         next: () => {
           this.loading = true;
         },

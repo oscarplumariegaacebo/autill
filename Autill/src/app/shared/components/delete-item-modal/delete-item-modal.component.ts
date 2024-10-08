@@ -3,6 +3,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from '../../../core/services/api.service';
 import { SpinnerLoadingComponent } from '../spinner-loading/spinner-loading.component';
 import { BudgetService } from '../../../core/services/budget.service';
+import { BillService } from '../../../core/services/bill.service';
+import { ClientService } from '../../../core/services/client.service';
+import { ItemService } from '../../../core/services/item.service';
 
 @Component({
   selector: 'app-delete-item-modal',
@@ -16,6 +19,9 @@ export class DeleteItemModalComponent {
   id!: number;
   apiService = inject(ApiService);
   budgetService = inject(BudgetService);
+  billService = inject(BillService);
+  clientService = inject(ClientService);
+  itemService = inject(ItemService);
   loading: boolean = false;
 
   constructor(public dialogRef: MatDialogRef<DeleteItemModalComponent>) {
@@ -28,13 +34,13 @@ export class DeleteItemModalComponent {
 
     setTimeout(() => {
       if(this.type.includes('factura')){
-        this.apiService.deleteBill(this.id).subscribe();
+        this.billService.deleteBill(this.id).subscribe();
       }else if(this.type.includes('presupuesto')){
         this.budgetService.deleteBudget(this.id).subscribe();
       }else if(this.type.includes('producto')){
-        this.apiService.deleteProduct(this.id).subscribe();
+        this.itemService.deleteProduct(this.id).subscribe();
       }else if(this.type.includes('cliente')){
-        this.apiService.deleteClient(this.id).subscribe(); 
+        this.clientService.deleteClient(this.id).subscribe(); 
       }
 
       window.location.reload();

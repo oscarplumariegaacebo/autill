@@ -10,8 +10,8 @@
                             <th scope="col" class="px-14 py-3">nombre</th>
                             <th scope="col" class="px-8 py-3">nif</th>
                             <th scope="col" class="px-8 py-3">email</th>
-                            <th scope="col" class="px-10 py-3">direccion completa</th>
-                            <th scope="col" class="px-8 py-3">telefono</th>
+                            <th scope="col" class="px-10 py-3">dirección completa</th>
+                            <th scope="col" class="px-8 py-3">teléfono</th>
                             <th scope="col" class="px-10 py-3">
                                 <button (click)="openTaskDialog(0)"
                                     class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-8 rounded inline-flex items-center">
@@ -38,7 +38,7 @@
                                 {{ c.email }}
                             </td>
                             <td class="px-10 py-3">
-                                {{ c.address }} {{ c.city }} {{ c.region }} {{ c.postalCode }}
+                                {{ c.address }}, {{ c.city }} ({{ c.region }}), {{ c.postalCode }}
                             </td>
                             <td class="px-8 py-3">
                                 {{ c.phoneNumber }}
