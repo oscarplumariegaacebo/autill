@@ -131,7 +131,7 @@ export class BudgetModalComponent {
           sumTotalPrice = sumTotalPrice + result.data[i].totalConcept;
         }
 
-        this.budgetForm.controls['price'].setValue(sumTotalPrice);
+        this.budgetForm.controls['price'].setValue(Number(sumTotalPrice.toFixed(2)));
         this.modalItemsArray = result.data;
 
         this.budgetForm.controls['descriptionItems'].setValue(JSON.stringify(result.data));

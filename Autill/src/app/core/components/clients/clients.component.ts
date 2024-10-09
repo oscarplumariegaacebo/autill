@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatButton } from '@angular/material/button';
@@ -6,16 +6,19 @@ import { DeleteItemModalComponent } from '../../../shared/components/delete-item
 import { ClientsModalComponent } from '../../../shared/components/clients-modal/clients-modal.component';
 import { ErrorsComponent } from '../../../shared/components/errors/errors.component';
 import { ClientService } from '../../services/client.service';
+import { PaginatorComponent } from '../../../shared/components/paginator/paginator.component';
 
 @Component({
   selector: 'app-clients',
   standalone: true,
-  imports: [MatButton, ErrorsComponent],
+  imports: [MatButton, ErrorsComponent, PaginatorComponent],
   templateUrl: './clients.component.html',
   styleUrl: './clients.component.css'
 })
 export class ClientsComponent {
-  clients:any = [];
+  @Input() clients: any;
+
+  allClients:any = [];
   showModal = false;
   clientService = inject(ClientService);
   errorMessage: string = '';
@@ -24,8 +27,9 @@ export class ClientsComponent {
 
   ngOnInit() {
     this.clientService.getClients().subscribe({
-      next: (data) => {
-        this.clients = data;
+      next: (data:any) => {
+        this.allClients = data;
+        this.clients = data.slice(0,10);
       }, 
       error: (err: HttpErrorResponse) => {
         let error = '';
@@ -39,6 +43,10 @@ export class ClientsComponent {
         this.errorMessage = error;
       }
     })
+  }
+
+  updateItems(clients: any){
+    this.clients = clients;
   }
 
   deleteClient(id: number){

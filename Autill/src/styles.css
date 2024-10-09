@@ -3,30 +3,33 @@
 @tailwind components;
 @tailwind utilities;
 
-body, html{
-    height: 100%;
-    width: 100%;
-    margin: 0;
+body,
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 /* -----
 SVG Icons - svgicons.sparkk.fr
 ----- */
 
 .svg-icon {
-    width: 2em;
-    height: 2em;
-  }
-  
-  .svg-icon path,
-  .svg-icon polygon,
-  .svg-icon rect {
-    fill: #4691f6;
-  }
-  
-  .svg-icon circle {
-    stroke: #4691f6;
-    stroke-width: 1;
-  }
+  width: 2em;
+  height: 2em;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+  fill: #4691f6;
+}
+
+.svg-icon circle {
+  stroke: #4691f6;
+  stroke-width: 1;
+}

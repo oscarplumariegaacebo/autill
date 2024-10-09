@@ -4,7 +4,7 @@
     }
     @else {
         @if(budgets){ @if(budgets.length > 0){
-            <div class="min-h-screen flex flex-col w-full bg-white dark:bg-gray-800">
+            <div class="min-h-screen w-full bg-white dark:bg-gray-800">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
@@ -58,15 +58,9 @@
                             </td>
                         </tr>
                         }
-                        <div class="flex-grow min-h-dvh"></div>
                     </tbody>
                 </table>
-                <mat-paginator
-                    [length]="budgets.length"
-                    [pageSize]="10"
-                    [pageSizeOptions]="[10, 25, 100]"
-                    aria-label="Select page">
-                </mat-paginator>
+                <app-paginator [allItems]="allBudgets" (updateItems)="updateItems($event)"></app-paginator>
             </div>
             }@else {
             <div class="flex items-center justify-center h-screen">

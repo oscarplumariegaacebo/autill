@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, Input, ViewChild } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BudgetModalComponent } from '../../../shared/components/budget-modal/budget-modal.component';
@@ -7,18 +7,20 @@ import { MatButton } from '@angular/material/button';
 import { ErrorsComponent } from "../../../shared/components/errors/errors.component";
 import { DeleteItemModalComponent } from '../../../shared/components/delete-item-modal/delete-item-modal.component';
 import { CommonService } from '../../services/common-service.service';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { BudgetService } from '../../services/budget.service';
+import { PaginatorComponent } from '../../../shared/components/paginator/paginator.component';
 
 @Component({
   selector: 'app-budgets',
   standalone: true,
-  imports: [MatButton, ErrorsComponent, MatPaginatorModule],
+  imports: [MatButton, ErrorsComponent, PaginatorComponent],
   templateUrl: './budgets.component.html',
   styleUrl: './budgets.component.css'
 })
 export class BudgetsComponent {
-  budgets: any = [];
+  @Input() budgets: any;
+  
+  allBudgets: any = [];
   showModal = false;
   apiService = inject(ApiService);
   budgetService = inject(BudgetService);
@@ -29,7 +31,8 @@ export class BudgetsComponent {
   ngOnInit() {
     this.budgetService.getBudgets().subscribe({
       next: (data: any) => {
-        this.budgets = data;
+        this.allBudgets = data;
+        this.budgets = data.slice(0,10);
       },
       error: (err: HttpErrorResponse) => {
         let error = '';
@@ -43,6 +46,10 @@ export class BudgetsComponent {
         this.errorMessage = error;
       }
     })
+  }
+
+  updateItems(budgets: any){
+    this.budgets = budgets;
   }
 
   openTaskDialog(action: string, id: number) {
