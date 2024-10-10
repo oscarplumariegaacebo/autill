@@ -5,7 +5,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ItemModalComponent } from '../../../shared/components/item-modal/item-modal.component';
 import { ErrorsComponent } from '../../../shared/components/errors/errors.component';
 import { ItemService } from '../../services/item.service';
-import { Item } from '../../models/Item';
 import { PaginatorComponent } from '../../../shared/components/paginator/paginator.component';
 
 @Component({

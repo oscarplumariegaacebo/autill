@@ -17,6 +17,11 @@ const PAGINATION: Pages[] = [
   {page: 8, initialElement: 70, finalElement: 80},
   {page: 9, initialElement: 80, finalElement: 90},
   {page: 10, initialElement: 90, finalElement: 100},
+  {page: 11, initialElement: 100, finalElement: 110},
+  {page: 12, initialElement: 110, finalElement: 120},
+  {page: 13, initialElement: 120, finalElement: 130},
+  {page: 14, initialElement: 130, finalElement: 140},
+  {page: 15, initialElement: 140, finalElement: 150}
 ];
 
 @Component({

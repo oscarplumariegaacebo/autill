@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DeleteItemModalComponent } from '../../../shared/components/delete-item-modal/delete-item-modal.component';
@@ -6,16 +6,19 @@ import { MatDialog } from '@angular/material/dialog';
 import { CommonService } from '../../services/common-service.service';
 import { BillService } from '../../services/bill.service';
 import { ClientService } from '../../services/client.service';
+import { PaginatorComponent } from '../../../shared/components/paginator/paginator.component';
 
 @Component({
   selector: 'app-bills',
   standalone: true,
-  imports: [],
+  imports: [PaginatorComponent],
   templateUrl: './bills.component.html',
   styleUrl: './bills.component.css'
 })
 export class BillsComponent {
-  bills: any = [];
+  @Input() bills: any;
+  
+  allBills: any = [];
   billService = inject(BillService);
   clientService = inject(ClientService);
   errorMessage: string = "";
@@ -34,7 +37,8 @@ export class BillsComponent {
             }
           })
         }
-        this.bills = data;
+        this.allBills = data;
+        this.bills = data.slice(0,10);
       }, 
       error: (err: HttpErrorResponse) => {
         let error = '';
@@ -48,6 +52,10 @@ export class BillsComponent {
         this.errorMessage = error;
       }
     })
+  }
+
+  updateItems(bills: any){
+    this.bills = bills;
   }
 
   openTaskDialog(n:string, id:number){
