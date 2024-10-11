@@ -81,6 +81,21 @@ namespace Autill.Controllers
             return budget;
         }
 
+        [HttpGet("revertStatus/{id}")]
+        public async Task<ActionResult<Budget>> RevertStatus(int id)
+        {
+            var budget = await _budgetContext.Budgets.FindAsync(id);
+            if (budget == null)
+            {
+                return NotFound();
+            }
+
+            budget.CloseIt = !budget.CloseIt;
+            await _budgetContext.SaveChangesAsync();
+
+            return budget;
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBudget(int id, Budget budget)
         {

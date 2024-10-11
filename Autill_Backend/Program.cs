@@ -1,7 +1,9 @@
+using Autill.Controllers;
 using Autill.Data;
 using Autill.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,10 +26,10 @@ builder.Services.AddDbContext<UserContext>(options =>
 builder.Services.AddDbContext<ClientContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDbContext<BudgetContext>(options =>
+builder.Services.AddDbContext<BillContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDbContext<BillContext>(options =>
+builder.Services.AddDbContext<BudgetContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddDbContext<ItemContext>(options =>

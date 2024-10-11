@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Autill.Controllers
 {
@@ -37,9 +38,11 @@ namespace Autill.Controllers
                 budgetToClone.CloseIt = true;
                 await _budgetContext.SaveChangesAsync();
 
+                var numBudget = budgetToClone.Name.Substring(budgetToClone.Name.Length - 4);
+
                 var bill = new Bill();
                 bill.IdBusiness = budgetToClone.IdBusiness;
-                bill.Name = budgetToClone.Name;
+                bill.Name = "Factura-"+numBudget;
                 bill.Price = budgetToClone.Price;
                 bill.IdBudget = budgetToClone.Id;
                 bill.DescriptionItems = budgetToClone.DescriptionItems;
@@ -63,6 +66,13 @@ namespace Autill.Controllers
             {
                 return NotFound();
             }
+
+            BudgetsController bc = new BudgetsController(_budgetContext, null);
+
+            bc.RevertStatus(bill.IdBudget);
+
+            //await _bc.RevertStatus(bill.IdBudget);
+
             _billContext.Bills.Remove(bill);
             await _billContext.SaveChangesAsync();
             return NoContent();
