@@ -69,7 +69,7 @@ namespace Autill.Controllers
 
             BudgetsController bc = new BudgetsController(_budgetContext, null);
 
-            bc.RevertStatus(bill.IdBudget);
+            await bc.RevertStatus(bill.IdBudget);
 
             //await _bc.RevertStatus(bill.IdBudget);
 
