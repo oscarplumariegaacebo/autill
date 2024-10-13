@@ -19,6 +19,7 @@ import { ClientService } from '../../../core/services/client.service';
 import { BillService } from '../../../core/services/bill.service';
 import { ItemService } from '../../../core/services/item.service';
 import { UserService } from '../../../core/services/user.service';
+import { SpinnerLoadingComponent } from '../spinner-loading/spinner-loading.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -40,7 +41,7 @@ export const MY_FORMATS = {
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
   ],
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule, AsyncPipe],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule, AsyncPipe, SpinnerLoadingComponent],
   templateUrl: './budget-modal.component.html',
   styleUrl: './budget-modal.component.css'
 })
@@ -170,7 +171,7 @@ export class BudgetModalComponent {
       }
       this.budgetForm.controls['clientId'].setValue(this.clientSelected.id);
       this.budgetForm.controls['clientName'].setValue(this.clientSelected.name);
-      console.log(this.budgetForm);
+
       this.budgetService.editBudget(this.id, this.budgetForm.value).subscribe({
         complete: () => {
           setTimeout(() => {
