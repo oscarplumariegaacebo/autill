@@ -35,7 +35,7 @@ export class ItemModalComponent {
   }
 
   ngOnInit(){
-    console.log(this.id);
+
   }
 
   onClose(): void {

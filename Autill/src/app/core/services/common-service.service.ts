@@ -18,7 +18,6 @@ export class CommonService {
   constructor() { }
 
   generatePDF(type:string, id:number){
-    console.log(id);
     let title = '';
     if(type === 'bill') {
       title = 'Factura'
@@ -31,9 +30,6 @@ export class CommonService {
         this.clientService.getClientById(budget.clientId).subscribe({
           next: (client:any) =>{
             const doc = new jsPDF();
-            console.log(budget);
-            console.log(user);
-            console.log(client);
   
             doc.setFontSize(28);
             doc.setFont('courier');

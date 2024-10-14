@@ -9,11 +9,12 @@ import { DeleteItemModalComponent } from '../../../shared/components/delete-item
 import { CommonService } from '../../services/common-service.service';
 import { BudgetService } from '../../services/budget.service';
 import { PaginatorComponent } from '../../../shared/components/paginator/paginator.component';
+import { SearchFiltersComponent } from "../../../shared/components/search-filters/search-filters.component";
 
 @Component({
   selector: 'app-budgets',
   standalone: true,
-  imports: [MatButton, ErrorsComponent, PaginatorComponent],
+  imports: [MatButton, ErrorsComponent, PaginatorComponent, SearchFiltersComponent],
   templateUrl: './budgets.component.html',
   styleUrl: './budgets.component.css'
 })
@@ -21,6 +22,7 @@ export class BudgetsComponent {
   @Input() budgets: any;
   
   allBudgets: any = [];
+  dataBudgets: any = [];
   showModal = false;
   apiService = inject(ApiService);
   budgetService = inject(BudgetService);
@@ -32,6 +34,7 @@ export class BudgetsComponent {
     this.budgetService.getBudgets().subscribe({
       next: (data: any) => {
         this.allBudgets = data;
+        this.dataBudgets = data;
         this.budgets = data.slice(0,10);
       },
       error: (err: HttpErrorResponse) => {
@@ -50,6 +53,28 @@ export class BudgetsComponent {
 
   updateItems(budgets: any){
     this.budgets = budgets;
+  }
+
+  updateSearching(formControlValue: any){
+    this.budgets = this.dataBudgets;
+
+    let filters:any = {};
+    for(let k in formControlValue){
+      if(formControlValue[k] !== null){
+        filters[k] = formControlValue[k];
+        if(k === 'name'){
+          this.budgets = this.budgets.filter((item:any) => item.name === formControlValue[k]);
+        }else if(k === 'clientId'){
+          this.budgets = this.budgets.filter((item:any) => item.clientName === formControlValue[k]);
+        }else if(k === 'date'){
+          this.budgets = this.budgets.filter((item:any) => item.date === formControlValue[k]);
+        }else if(k === 'status'){
+          this.budgets = this.budgets.filter((item:any) => item.closeIt === formControlValue[k]);
+        }
+      }
+    }
+
+    this.allBudgets = this.budgets;
   }
 
   openTaskDialog(action: string, id: number) {

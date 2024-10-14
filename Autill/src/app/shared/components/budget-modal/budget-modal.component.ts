@@ -80,7 +80,7 @@ export class BudgetModalComponent {
     })
   }
 
-  constructor(public dialogRef: MatDialogRef<BudgetModalComponent>, private formBuilder: FormBuilder, private dialog: MatDialog, private router: Router) {
+  constructor(public dialogRef: MatDialogRef<BudgetModalComponent>, private dialog: MatDialog, private router: Router) {
     this.initializeForm();
   }
 

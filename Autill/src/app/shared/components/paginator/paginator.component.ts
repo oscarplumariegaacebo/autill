@@ -34,7 +34,7 @@ const PAGINATION: Pages[] = [
 export class PaginatorComponent {
 
   @Input() allItems: any;
-  @Output() updateItems = new EventEmitter<any>();;
+  @Output() updateItems = new EventEmitter<any>();
 
   modelPagination:any = PAGINATION;
   pageSize = 10;
@@ -45,11 +45,15 @@ export class PaginatorComponent {
   pPage: boolean = false;
 
   ngOnInit() {
-    if(this.finalElement > this.allItems.length) {
+    if(this.finalElement >= this.allItems.length) {
       this.finalElement = this.allItems.length;
       this.nPage = false;
       this.pPage = false;
     }
+  }
+
+  ngOnChanges(){
+    this.ngOnInit();
   }
 
   nextPage(actualPage: number){
