@@ -76,6 +76,10 @@ export class SearchFiltersComponent {
     this.updateSearching.emit(this.searchForm.value); 
   }
 
+  reset(){
+    this.updateSearching.emit("");
+  }
+
   private _filter(value: any): any[] {
     let filterValue = '';
 

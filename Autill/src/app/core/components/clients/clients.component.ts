@@ -54,20 +54,23 @@ export class ClientsComponent {
   }
 
   updateSearching(formControlValue: any){
-    this.clients = this.dataClients;
+    if(typeof formControlValue === 'string'){
+      this.clients = this.dataClients;
+    }else{
+      this.clients = this.dataClients;
 
-    for(let k in formControlValue){
-      if(formControlValue[k] !== null && formControlValue[k] !== ''){
-        if(k === 'name'){
-          this.clients = this.clients.filter((item:any) => item.name.includes(formControlValue[k]));
-        }else if(k === 'clientId'){
-          this.clients = this.clients.filter((item:any) => item.clientName === formControlValue[k]);
-        }else if(k === 'status'){
-          this.clients = this.clients.filter((item:any) => item.closeIt === formControlValue[k]);
+      for(let k in formControlValue){
+        if(formControlValue[k] !== null && formControlValue[k] !== ''){
+          if(k === 'name'){
+            this.clients = this.clients.filter((item:any) => (item.name.toLowerCase()).includes(formControlValue[k].toLowerCase()));
+          }else if(k === 'nif'){
+            this.clients = this.clients.filter((item:any) => (item.nif.toLowerCase()).includes(formControlValue[k].toLowerCase()));
+          }else if(k === 'phoneNumber'){
+            this.clients = this.clients.filter((item:any) => item.phoneNumber.includes(formControlValue[k].toString()));
+          }
         }
       }
     }
-
     this.allClients = this.clients;
   }
 
