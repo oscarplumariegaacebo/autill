@@ -6,19 +6,24 @@ import { ItemModalComponent } from '../../../shared/components/item-modal/item-m
 import { ErrorsComponent } from '../../../shared/components/errors/errors.component';
 import { ItemService } from '../../services/item.service';
 import { PaginatorComponent } from '../../../shared/components/paginator/paginator.component';
+import { SearchFiltersComponent } from '../../../shared/components/search-filters/search-filters.component';
+import { CommonService } from '../../services/common-service.service';
 
 @Component({
   selector: 'app-items',
   standalone: true,
-  imports: [ErrorsComponent, PaginatorComponent],
+  imports: [ErrorsComponent, PaginatorComponent, SearchFiltersComponent],
   templateUrl: './items.component.html',
   styleUrl: './items.component.css'
 })
 export class ItemsComponent {
   @Input() items: any;
 
+  dataScreen: string = 'items'
+  dataItems: any = [];
   showModal = false;
   itemService = inject(ItemService);
+  commonService = inject(CommonService);
   errorMessage: string = '';
   allItems: any = [];
 
@@ -29,6 +34,7 @@ export class ItemsComponent {
   ngOnInit() {
     this.itemService.getItems().subscribe((items:any) => {
       this.allItems = items;
+      this.dataItems = items;
       this.items = items.slice(0,10);
     })
   }
@@ -46,6 +52,22 @@ export class ItemsComponent {
 
   updateItems(items: any){
     this.items = items;
+  }
+
+  updateSearching(formControlValue: any){
+    this.items = this.dataItems;
+
+    for(let k in formControlValue){
+      if(formControlValue[k] !== null && formControlValue[k] !== ''){
+        if(k === 'name'){
+          this.items = this.items.filter((item:any) => item.name.includes(formControlValue[k]));
+        }else if(k === 'clientId'){
+          this.items = this.items.filter((item:any) => item.clientName === formControlValue[k]);
+        }
+      }
+    }
+
+    this.allItems = this.items;
   }
 
   deleteItem(id:number){

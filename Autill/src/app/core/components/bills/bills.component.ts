@@ -7,21 +7,24 @@ import { CommonService } from '../../services/common-service.service';
 import { BillService } from '../../services/bill.service';
 import { ClientService } from '../../services/client.service';
 import { PaginatorComponent } from '../../../shared/components/paginator/paginator.component';
+import { SearchFiltersComponent } from '../../../shared/components/search-filters/search-filters.component';
 
 @Component({
   selector: 'app-bills',
   standalone: true,
-  imports: [PaginatorComponent],
+  imports: [PaginatorComponent, SearchFiltersComponent],
   templateUrl: './bills.component.html',
   styleUrl: './bills.component.css'
 })
 export class BillsComponent {
   @Input() bills: any;
   
+  dataScreen: string = 'bills';
   allBills: any = [];
   billService = inject(BillService);
   clientService = inject(ClientService);
   errorMessage: string = "";
+  dataBills: any = [];
 
   constructor(private dialog: MatDialog, public commonService: CommonService) {}
 
@@ -38,6 +41,7 @@ export class BillsComponent {
           })
         }
         this.allBills = data;
+        this.dataBills = data;
         this.bills = data.slice(0,10);
       }, 
       error: (err: HttpErrorResponse) => {
@@ -56,6 +60,26 @@ export class BillsComponent {
 
   updateItems(bills: any){
     this.bills = bills;
+  }
+
+  updateSearching(formControlValue: any){
+    this.bills = this.dataBills;
+
+    for(let k in formControlValue){
+      if(formControlValue[k] !== null && formControlValue[k] !== ''){
+        if(k === 'name'){
+          this.bills = this.bills.filter((item:any) => item.name.includes(formControlValue[k]));
+        }else if(k === 'clientId'){
+          this.bills = this.bills.filter((item:any) => item.clientName === formControlValue[k]);
+        }else if(k === 'date'){
+          this.bills = this.bills.filter((item:any) => item.date === this.commonService.transformDate(formControlValue[k]));
+        }else if(k === 'status'){
+          this.bills = this.bills.filter((item:any) => item.closeIt === formControlValue[k]);
+        }
+      }
+    }
+
+    this.allBills = this.bills;
   }
 
   openTaskDialog(n:string, id:number){

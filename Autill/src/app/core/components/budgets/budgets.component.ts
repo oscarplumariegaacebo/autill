@@ -21,6 +21,7 @@ import { SearchFiltersComponent } from "../../../shared/components/search-filter
 export class BudgetsComponent {
   @Input() budgets: any;
   
+  dataScreen: string = 'budgets';
   allBudgets: any = [];
   dataBudgets: any = [];
   showModal = false;
@@ -58,16 +59,14 @@ export class BudgetsComponent {
   updateSearching(formControlValue: any){
     this.budgets = this.dataBudgets;
 
-    let filters:any = {};
     for(let k in formControlValue){
-      if(formControlValue[k] !== null){
-        filters[k] = formControlValue[k];
+      if(formControlValue[k] !== null && formControlValue[k] !== ''){
         if(k === 'name'){
-          this.budgets = this.budgets.filter((item:any) => item.name === formControlValue[k]);
+          this.budgets = this.budgets.filter((item:any) => item.name.includes(formControlValue[k]));
         }else if(k === 'clientId'){
           this.budgets = this.budgets.filter((item:any) => item.clientName === formControlValue[k]);
         }else if(k === 'date'){
-          this.budgets = this.budgets.filter((item:any) => item.date === formControlValue[k]);
+          this.budgets = this.budgets.filter((item:any) => item.date === this.commonService.transformDate(formControlValue[k]));
         }else if(k === 'status'){
           this.budgets = this.budgets.filter((item:any) => item.closeIt === formControlValue[k]);
         }

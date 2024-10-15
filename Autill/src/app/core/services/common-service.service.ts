@@ -82,4 +82,8 @@ export class CommonService {
       });
     })
   }
+
+  transformDate(date: any){
+    return date._i.date + "/" + (date._i.month+1) + "/" + date._i.year;
+  }
 }
