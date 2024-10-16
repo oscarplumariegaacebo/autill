@@ -20,10 +20,10 @@ namespace Autill.Controllers
             _clientContext = clientContext;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Budget>>> GetBudgets()
+        [HttpGet("list/{id}")]
+        public async Task<ActionResult<IEnumerable<Budget>>> GetBudgets(string id)
         {
-            return await _budgetContext.Budgets.ToListAsync();
+            return await _budgetContext.Budgets.FromSqlInterpolated($"SELECT * FROM budgets where IdBusiness = {id}").ToListAsync();
         }
 
         [HttpGet("nextName")]

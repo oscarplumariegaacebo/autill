@@ -16,10 +16,10 @@ namespace Autill.Controllers
             _itemContext = itemContext;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Item>>> GetItems()
+        [HttpGet("list/{id}")]
+        public async Task<ActionResult<IEnumerable<Item>>> GetItems(string id)
         {
-            return await _itemContext.Items.ToListAsync();
+            return await _itemContext.Items.FromSqlInterpolated($"SELECT * FROM items where IdBusiness = {id}").ToListAsync();
         }
 
         [HttpGet("{id}")]
@@ -52,6 +52,37 @@ namespace Autill.Controllers
             _itemContext.Items.Remove(item);
             await _itemContext.SaveChangesAsync();
             return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutItem(int id, Item item)
+        {
+            if (id != item.Id)
+            {
+                return BadRequest();
+            }
+            _itemContext.Entry(item).State = EntityState.Modified;
+            try
+            {
+                await _itemContext.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ItemExist(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return NoContent();
+        }
+
+        private bool ItemExist(int id)
+        {
+            return _itemContext.Items.Any(e => e.Id == id);
         }
     }
 }

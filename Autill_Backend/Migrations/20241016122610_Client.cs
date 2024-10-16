@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Autill.Migrations.Client
+namespace Autill.Migrations
 {
     /// <inheritdoc />
     public partial class Client : Migration
@@ -16,6 +16,7 @@ namespace Autill.Migrations.Client
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    IdBusiness = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Nif = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),

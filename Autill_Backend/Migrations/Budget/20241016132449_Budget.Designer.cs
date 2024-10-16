@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Autill.Migrations
+namespace Autill.Migrations.Budget
 {
     [DbContext(typeof(BudgetContext))]
-    [Migration("20241003200244_Budget")]
+    [Migration("20241016132449_Budget")]
     partial class Budget
     {
         /// <inheritdoc />

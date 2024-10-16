@@ -2,26 +2,31 @@
 
 #nullable disable
 
-namespace Autill.Migrations.Item
+namespace Autill.Migrations.Bill
 {
     /// <inheritdoc />
-    public partial class Item : Migration
+    public partial class Bill : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Items",
+                name: "Bills",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    IdBusiness = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdBudget = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PriceU = table.Column<float>(type: "real", nullable: false)
+                    ClientId = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DescriptionItems = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Items", x => x.Id);
+                    table.PrimaryKey("PK_Bills", x => x.Id);
                 });
         }
 
@@ -29,7 +34,7 @@ namespace Autill.Migrations.Item
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Items");
+                name: "Bills");
         }
     }
 }

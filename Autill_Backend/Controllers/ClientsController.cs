@@ -18,10 +18,11 @@ namespace Autill.Controllers
             _budgetContext = budgetContext;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Client>>> GetClients()
+        [HttpGet("list/{id}")]
+        public async Task<ActionResult<IEnumerable<Client>>> GetClients(string id)
         {
-            return await _clientContext.Clients.ToListAsync();
+            return await _clientContext.Clients.FromSqlInterpolated($"SELECT * FROM clients where IdBusiness = {id}").ToListAsync();
+
         }
 
         [HttpGet("{id}")]

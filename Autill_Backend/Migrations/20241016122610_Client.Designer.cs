@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Autill.Migrations.Client
+namespace Autill.Migrations
 {
     [DbContext(typeof(ClientContext))]
-    [Migration("20241007155731_Client")]
+    [Migration("20241016122610_Client")]
     partial class Client
     {
         /// <inheritdoc />
@@ -45,6 +45,10 @@ namespace Autill.Migrations.Client
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdBusiness")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")

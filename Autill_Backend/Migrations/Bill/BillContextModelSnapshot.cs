@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Autill.Migrations
+namespace Autill.Migrations.Bill
 {
-    [DbContext(typeof(BudgetContext))]
-    partial class BudgetContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(BillContext))]
+    partial class BillContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace Autill.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Autill.Models.Budget", b =>
+            modelBuilder.Entity("Autill.Models.Bill", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,13 +32,6 @@ namespace Autill.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ClientName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("CloseIt")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Date")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -46,6 +39,9 @@ namespace Autill.Migrations
                     b.Property<string>("DescriptionItems")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdBudget")
+                        .HasColumnType("int");
 
                     b.Property<string>("IdBusiness")
                         .IsRequired()
@@ -60,7 +56,7 @@ namespace Autill.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Budgets");
+                    b.ToTable("Bills");
                 });
 #pragma warning restore 612, 618
         }

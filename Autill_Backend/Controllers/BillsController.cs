@@ -22,10 +22,10 @@ namespace Autill.Controllers
             _budgetContext = budgetContext; 
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Bill>>> GetBills()
+        [HttpGet("list/{id}")]
+        public async Task<ActionResult<IEnumerable<Bill>>> GetBills(string id)
         {
-            return await _billContext.Bills.ToListAsync();
+            return await _billContext.Bills.FromSqlInterpolated($"SELECT * FROM bills where IdBusiness = {id}").ToListAsync();
         }
 
         [HttpPost("clone")]

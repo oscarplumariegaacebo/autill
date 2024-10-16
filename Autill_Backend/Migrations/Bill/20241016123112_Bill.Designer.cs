@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Autill.Migrations.Item
+namespace Autill.Migrations.Bill
 {
-    [DbContext(typeof(ItemContext))]
-    [Migration("20240916210551_Item")]
-    partial class Item
+    [DbContext(typeof(BillContext))]
+    [Migration("20241016123112_Bill")]
+    partial class Bill
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace Autill.Migrations.Item
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Autill.Models.Item", b =>
+            modelBuilder.Entity("Autill.Models.Bill", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,16 +32,34 @@ namespace Autill.Migrations.Item
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DescriptionItems")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdBudget")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdBusiness")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("PriceU")
-                        .HasColumnType("real");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Items");
+                    b.ToTable("Bills");
                 });
 #pragma warning restore 612, 618
         }
