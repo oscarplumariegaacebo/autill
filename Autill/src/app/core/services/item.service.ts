@@ -14,8 +14,11 @@ export class ItemService {
   deleteProduct(id: number){
     return this.http.delete(this.api+'api/Item/'+id);
   }
-  getItems(){
-    return this.http.get(this.api+'api/Item')
+  getItems(id: string){
+    return this.http.get(this.api+'api/Item/list/'+id)
+  }
+  editItem(id:number, item:Item){
+    return this.http.put(this.api+'api/Item/'+id, item)
   }
   addItem(item:Item){
     return this.http.post<Item>(this.api+'api/Item', item)

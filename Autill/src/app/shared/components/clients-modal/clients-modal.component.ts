@@ -28,6 +28,7 @@ export class ClientsModalComponent {
       postalCode: new FormControl('',[Validators.pattern(/^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$/), Validators.required, Validators.maxLength(5)]),
       email: new FormControl('',[Validators.required, Validators.email]),
       country: new FormControl(),
+      idBusiness: new FormControl(localStorage.getItem('id') || "[]"),
       nif: new FormControl('',[Validators.pattern(/^[A-Va-w][0-9]{8}[A-Z]$|^[0-9]{7}[0-9A-Ja]$/), Validators.required, Validators.maxLength(9)]),
       phoneNumber: new FormControl('',[Validators.pattern(/^[+]?(?:\(\d+(?:\.\d+)?\)|\d+(?:\.\d+)?)(?:[ -]?(?:\(\d+(?:\.\d+)?\)|\d+(?:\.\d+)?))*(?:[ ]?(?:x|ext)\.?[ ]?\d{1,5})?$/), Validators.required, Validators.maxLength(9)])
     })

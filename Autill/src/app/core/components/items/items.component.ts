@@ -32,16 +32,16 @@ export class ItemsComponent {
   constructor(private dialog: MatDialog){}
 
   ngOnInit() {
-    this.itemService.getItems().subscribe((items:any) => {
+    this.itemService.getItems(localStorage.getItem('id') || "[]").subscribe((items:any) => {
       this.allItems = items;
       this.dataItems = items;
       this.items = items.slice(0,10);
     })
   }
 
-  openTaskDialog(action:string, id: number) {
+  openTaskDialog(action:string, item: Object) {
     const dialogRef = this.dialog.open(ItemModalComponent);
-    dialogRef.componentInstance.id = id;
+    dialogRef.componentInstance.item = item;
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

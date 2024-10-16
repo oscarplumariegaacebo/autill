@@ -11,8 +11,8 @@ export class ClientService {
 
   private readonly api = 'https://localhost:7234/';
 
-  getClients(){
-    return this.http.get(this.api+'api/Clients');
+  getClients(id:string){
+    return this.http.get(this.api+'api/Clients/list/'+id);
   }
   getClientById(id:number){
     return this.http.get(this.api+'api/Clients/'+id);

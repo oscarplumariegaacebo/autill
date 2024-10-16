@@ -12,8 +12,8 @@ export class BudgetService {
 
   private readonly api = 'https://localhost:7234/';
 
-  getBudgets(): Observable<BudgetResults>{
-    return this.http.get<BudgetResults>(this.api+'api/Budgets');
+  getBudgets(id:string): Observable<BudgetResults>{
+    return this.http.get<BudgetResults>(this.api+'api/Budgets/list/'+id);
   }
   nextBudgetName(){
     return this.http.get(this.api+'api/Budgets/nextName');

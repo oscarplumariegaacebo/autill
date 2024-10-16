@@ -15,7 +15,7 @@ import { ItemService } from '../../../core/services/item.service';
 })
 export class ItemModalComponent {
   itemForm!: FormGroup
-  id!: number;
+  item!: any;
   client: Object = {};
   loading:boolean = false;
   apiService = inject(ApiService);
@@ -26,7 +26,8 @@ export class ItemModalComponent {
     this.itemForm = new FormGroup({
       id: new FormControl(),
       name: new FormControl(),
-      priceU: new FormControl()
+      price: new FormControl(),
+      idBusiness: new FormControl(localStorage.getItem('id') || "[]")
     })
   }
 
@@ -35,7 +36,9 @@ export class ItemModalComponent {
   }
 
   ngOnInit(){
-
+    if(this.item.id > 0){
+      this.itemForm.setValue(this.item);
+    }
   }
 
   onClose(): void {
@@ -44,7 +47,7 @@ export class ItemModalComponent {
 
   actionClient(){
     this.loading = true;
-    if(this.id == 0){
+    if(this.item.id == 0){
       this.itemForm.removeControl('id');
       this.itemService.addItem(this.itemForm.value).subscribe({
         next: () => {
@@ -55,7 +58,7 @@ export class ItemModalComponent {
         }
       })
     }else{
-      this.clientService.editClient(this.id, this.itemForm.value).subscribe({
+      this.itemService.editItem(this.item.id, this.itemForm.value).subscribe({
         complete: () => {
           setTimeout(() => {
             window.location.reload();

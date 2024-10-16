@@ -10,8 +10,8 @@ export class BillService {
 
   private readonly api = 'https://localhost:7234/';
 
-  getBills(){
-    return this.http.get(this.api+'api/Bills')
+  getBills(id: string){
+    return this.http.get(this.api+'api/Bills/list/'+id);
   }
   deleteBill(id: number){
     return this.http.delete(this.api+'api/Bills/'+id);

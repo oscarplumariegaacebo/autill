@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } 
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Router } from '@angular/router';
 import { SpinnerLoadingComponent } from '../../../shared/components/spinner-loading/spinner-loading.component';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -40,6 +41,7 @@ export class LoginComponent {
   err:any | null;
   loading:boolean = false;
   apiService = inject(ApiService);
+  userService = inject(UserService);
 
   initializeForm(){
     this.registerForm = new FormGroup({
@@ -78,6 +80,10 @@ export class LoginComponent {
           complete: () => {
             setTimeout(() => {
               localStorage.setItem('email',this.registerForm.controls['email'].value);
+              this.userService.getUserByEmail( localStorage.getItem('email') || "[]").subscribe((data:any) => {
+                localStorage.setItem('id',data.id);
+              })
+
               this.router.navigate(['/home']);
             }, 1000)
           }

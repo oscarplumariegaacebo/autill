@@ -32,7 +32,7 @@ export class BudgetsComponent {
   constructor(private dialog: MatDialog, public commonService: CommonService) { }
 
   ngOnInit() {
-    this.budgetService.getBudgets().subscribe({
+    this.budgetService.getBudgets(localStorage.getItem('id') || "[]").subscribe({
       next: (data: any) => {
         this.allBudgets = data;
         this.dataBudgets = data;

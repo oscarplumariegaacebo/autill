@@ -29,7 +29,7 @@ export class ClientsComponent {
   constructor(private dialog: MatDialog){}
 
   ngOnInit() {
-    this.clientService.getClients().subscribe({
+    this.clientService.getClients(localStorage.getItem('id') || "[]").subscribe({
       next: (data:any) => {
         this.allClients = data;
         this.dataClients = data;
