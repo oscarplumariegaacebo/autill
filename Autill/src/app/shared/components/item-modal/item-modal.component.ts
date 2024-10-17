@@ -47,8 +47,9 @@ export class ItemModalComponent {
 
   actionClient(){
     this.loading = true;
-    if(this.item.id == 0){
+    if(this.item == 0){
       this.itemForm.removeControl('id');
+      console.log();
       this.itemService.addItem(this.itemForm.value).subscribe({
         next: () => {
           this.itemForm.addControl('id', new FormControl());
